@@ -62,7 +62,7 @@
   --space-7: 3rem;
   --space-8: 4rem;
   --space-9: 6rem;
-  --section-y: clamp(3.5rem, 2rem + 6vw, 7rem);
+  --section-y: clamp(3rem, 2rem + 4vw, 5.5rem);
 
   /* Shape & depth (never applied to the logo) */
   --radius-sm: 4px;

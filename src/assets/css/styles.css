@@ -782,3 +782,10 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
   /* Swatches and logo tiles in the component library stay still */
   .swatch:hover, .logo-stage:hover { transform: none; }
 }
+
+/* ---------- Section rhythm ---------- */
+/* Two neighbouring sections on the same plain background would add their paddings together and leave a large empty
+   gap. Remove the top padding of the second one so the space between them equals one normal section gap. */
+.section:not(.section--navy):not(.section--surface) + .section:not(.section--navy):not(.section--surface),
+.section--surface + .section--surface,
+.section--navy + .section--navy { padding-top: 0; }
