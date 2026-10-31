@@ -1,0 +1,92 @@
+<form class="form-card" action="#" method="post" data-form="employer-enquiry" data-endpoint="{{enquiryEndpoint}}"
+      data-success="Thank you. Your manpower enquiry has been received. Our team will call you within one working day.">
+  <h3>Manpower enquiry</h3>
+  <p class="lead">Tell us what you need. We reply within one working day.</p>
+  <div class="form-grid">
+    <div class="field">
+      <label for="eq-org">Organisation name <span class="req">(required)</span></label>
+      <input class="input" id="eq-org" name="organisation" autocomplete="organization" required maxlength="120">
+    </div>
+    <div class="field">
+      <label for="eq-contact">Contact person <span class="req">(required)</span></label>
+      <input class="input" id="eq-contact" name="contact_name" autocomplete="name" required maxlength="80">
+    </div>
+    <div class="field">
+      <label for="eq-phone">Mobile number <span class="req">(required)</span></label>
+      <input class="input" id="eq-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required
+             pattern="([+]91 ?)?[6-9][0-9]{4} ?[0-9]{5}" data-error="Please enter a 10-digit Indian mobile number.">
+    </div>
+    <div class="field">
+      <label for="eq-email">Email <span class="req">(optional)</span></label>
+      <input class="input" id="eq-email" name="email" type="email" autocomplete="email" maxlength="120">
+    </div>
+    <div class="field">
+      <label for="eq-role">Role needed <span class="req">(required)</span></label>
+      <select class="select" id="eq-role" name="role" required data-error="Please choose a role.">
+        <option value="">Choose a role</option>
+        <option>Hospital housekeeping</option>
+        <option>Patient attendants (non-clinical)</option>
+        <!-- if:security --><option>Security guards</option><!-- endif:security -->
+        <option>Office administration</option>
+        <option>Industrial workforce</option>
+        <option>Recruitment (permanent hiring)</option>
+        <option>Other or several roles</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="eq-count">Number of workers <span class="req">(required)</span></label>
+      <input class="input" id="eq-count" name="worker_count" type="number" inputmode="numeric" min="1" max="5000" required>
+    </div>
+    <div class="field">
+      <label for="eq-location">Work location <span class="req">(required)</span></label>
+      <input class="input" id="eq-location" name="location" autocomplete="address-level2" required maxlength="120"
+             placeholder="For example, Waluj MIDC">
+    </div>
+    <div class="field">
+      <label for="eq-timeline">When do you need them? <span class="req">(required)</span></label>
+      <select class="select" id="eq-timeline" name="timeline" required data-error="Please choose a timeline.">
+        <option value="">Choose a timeline</option>
+        <option>Immediately</option>
+        <option>Within 2 weeks</option>
+        <option>Within a month</option>
+        <option>In 1 to 3 months</option>
+        <option>Planning ahead</option>
+      </select>
+    </div>
+    <fieldset class="field field--full" data-required-group data-error="Please choose at least one shift.">
+      <legend>Shifts <span class="req">(required)</span></legend>
+      <div class="choice-row">
+        <label class="choice"><input type="checkbox" name="shifts" value="Day"><span>Day</span></label>
+        <label class="choice"><input type="checkbox" name="shifts" value="Evening"><span>Evening</span></label>
+        <label class="choice"><input type="checkbox" name="shifts" value="Night"><span>Night</span></label>
+        <label class="choice"><input type="checkbox" name="shifts" value="24x7 rotation"><span>24×7 rotation</span></label>
+      </div>
+    </fieldset>
+    <div class="field field--full">
+      <label for="eq-notes">Anything else we should know? <span class="req">(optional)</span></label>
+      <textarea class="textarea" id="eq-notes" name="notes" maxlength="1500"></textarea>
+    </div>
+    <div class="hp-field" aria-hidden="true">
+      <label for="eq-website">Leave this empty</label>
+      <input id="eq-website" name="company_website" tabindex="-1" autocomplete="off">
+    </div>
+    <input type="hidden" name="started_at">
+    <input type="hidden" name="form_name" value="employer-enquiry">
+    <div class="field field--full">
+      <div class="privacy-note">
+        <p><strong>Privacy notice.</strong> We use these details only to respond to your enquiry and prepare a proposal. They are stored securely, seen only by our business team, and are never sold or shared for marketing. You can ask us to delete them at any time. <a href="privacy.html">Read the full privacy notice</a>.</p>
+      </div>
+    </div>
+    <div class="field field--full">
+      <label class="consent-check" for="eq-consent">
+        <input type="checkbox" id="eq-consent" name="consent" value="yes" required>
+        <span>I agree that GS Manpower Services may contact me about this enquiry by phone, WhatsApp or email.</span>
+      </label>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn btn-primary btn-block" type="submit">Send enquiry <svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+    <small>Prefer to talk? Call <a href="tel:{{phoneE164}}">{{phoneDisplay}}</a>.</small>
+  </div>
+  <div class="notice form-status" role="status" tabindex="-1" data-form-status></div>
+</form>

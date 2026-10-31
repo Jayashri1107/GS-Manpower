@@ -1,0 +1,29 @@
+<!--meta {"slug":"contact","title":"Contact Us | GS Manpower Services","description":"Contact GS Manpower Services in Chhatrapati Sambhajinagar by phone, WhatsApp or email, or send a manpower enquiry online."} -->
+    <section class="page-hero">
+      <div class="container">
+        <ol class="breadcrumb"><li><a href="index.html">Home</a></li><li aria-current="page">Contact Us</li></ol>
+        <p class="eyebrow">Contact us</p>
+        <h1>Talk to our team</h1>
+        <p class="lead">For staffing enquiries, call, message us on WhatsApp, or send the form below. Looking for a job? Use the <a href="careers.html#apply">job application form</a>.</p>
+      </div>
+    </section>
+
+    <section class="section" id="enquiry">
+      <div class="container split split--top">
+        <div>
+          <ul class="contact-list">
+            <li class="contact-item"><span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></span><div><strong>Phone</strong><a href="tel:{{phoneE164}}">{{phoneDisplay}}</a></div></li>
+            <li class="contact-item"><span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg></span><div><strong>WhatsApp</strong><a href="https://wa.me/{{whatsapp}}?text=Hello%20GS%20Manpower%20Services" target="_blank" rel="noopener" data-whatsapp>Message us on WhatsApp</a></div></li>
+            <li class="contact-item"><span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span><div><strong>Email</strong><a href="mailto:{{email}}">{{email}}</a></div></li>
+            <li class="contact-item"><span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg></span><div><strong>Office</strong><span>{{addressLine}}, {{addressCity}}</span></div></li>
+            <li class="contact-item"><span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></span><div><strong>Office hours</strong><span>{{hours}}</span></div></li>
+          </ul>
+          <div class="map-card mt-6">
+            <span class="badge badge--neutral"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>Chhatrapati Sambhajinagar</span>
+            <!-- A map link instead of an embedded map: no third-party cookies before consent. Replace with the office's Maps link. -->
+            <a class="link-arrow" href="https://www.google.com/maps/search/?api=1&amp;query=Chhatrapati+Sambhajinagar" target="_blank" rel="noopener">Open directions in Google Maps <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+        {{> enquiry-form}}
+      </div>
+    </section>

@@ -1,0 +1,84 @@
+<form class="form-card" action="#" method="post" enctype="multipart/form-data" data-form="job-application" data-endpoint="{{applicationEndpoint}}"
+      data-success="Thank you. Your application has been received. If your profile matches an opening, our recruitment team will call you.">
+  <h3>Apply for a job</h3>
+  <p class="lead">It takes about two minutes. A resume is helpful but not required.</p>
+  <div class="form-grid">
+    <div class="field">
+      <label for="ap-name">Full name <span class="req">(required)</span></label>
+      <input class="input" id="ap-name" name="full_name" autocomplete="name" required maxlength="80">
+    </div>
+    <div class="field">
+      <label for="ap-phone">Mobile number <span class="req">(required)</span></label>
+      <input class="input" id="ap-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required
+             pattern="([+]91 ?)?[6-9][0-9]{4} ?[0-9]{5}" data-error="Please enter a 10-digit Indian mobile number.">
+    </div>
+    <div class="field">
+      <label for="ap-role">Job you want <span class="req">(required)</span></label>
+      <select class="select" id="ap-role" name="role" required data-error="Please choose a job.">
+        <option value="">Choose a job</option>
+        <option>Housekeeping staff</option>
+        <option>Patient attendant (non-clinical)</option>
+        <!-- if:security --><option>Security guard</option><!-- endif:security -->
+        <option>Office assistant or receptionist</option>
+        <option>Data entry or back office</option>
+        <option>Machine operator or helper</option>
+        <option>Loader, packer or store helper</option>
+        <option>Supervisor</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="ap-exp">Experience <span class="req">(required)</span></label>
+      <select class="select" id="ap-exp" name="experience" required data-error="Please choose your experience.">
+        <option value="">Choose experience</option>
+        <option>No experience (fresher)</option>
+        <option>Less than 1 year</option>
+        <option>1 to 3 years</option>
+        <option>3 to 5 years</option>
+        <option>More than 5 years</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="ap-location">Preferred work location <span class="req">(required)</span></label>
+      <input class="input" id="ap-location" name="location" autocomplete="address-level2" required maxlength="120"
+             placeholder="For example, CIDCO or Waluj">
+    </div>
+    <div class="field">
+      <label for="ap-availability">When can you join? <span class="req">(required)</span></label>
+      <select class="select" id="ap-availability" name="availability" required data-error="Please choose when you can join.">
+        <option value="">Choose one</option>
+        <option>Immediately</option>
+        <option>Within 15 days</option>
+        <option>Within 1 month</option>
+        <option>After 1 month</option>
+      </select>
+    </div>
+    <div class="field field--full">
+      <label for="ap-resume">Resume <span class="req">(optional, PDF or Word, up to 5 MB)</span></label>
+      <input class="input" id="ap-resume" name="resume" type="file" accept=".pdf,.doc,.docx" data-max-mb="5" aria-describedby="ap-resume-hint">
+      <p class="field-hint" id="ap-resume-hint">No resume? Leave this empty. We can help you prepare one at the interview. Please do not upload Aadhaar, PAN or bank documents here.</p>
+    </div>
+    <div class="hp-field" aria-hidden="true">
+      <label for="ap-website">Leave this empty</label>
+      <input id="ap-website" name="company_website" tabindex="-1" autocomplete="off">
+    </div>
+    <input type="hidden" name="started_at">
+    <input type="hidden" name="form_name" value="job-application">
+    <div class="field field--full">
+      <div class="privacy-note">
+        <p><strong>Privacy notice.</strong> We use your details only to match you with suitable jobs and to contact you about them. Your application is stored securely, seen only by our recruitment team, and shared with an employer only after we speak with you. We keep it for up to 12 months unless you ask us to delete it sooner. <a href="privacy.html">Read the full privacy notice</a>.</p>
+      </div>
+    </div>
+    <div class="field field--full">
+      <label class="consent-check" for="ap-consent">
+        <input type="checkbox" id="ap-consent" name="consent" value="yes" required>
+        <span>I agree that GS Manpower Services may store my application and contact me about jobs by phone, WhatsApp or email.</span>
+      </label>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn btn-primary btn-block" type="submit">Submit application <svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+    <small>We never charge job seekers any fee.</small>
+  </div>
+  <div class="notice form-status" role="status" tabindex="-1" data-form-status></div>
+</form>
