@@ -6,11 +6,12 @@ Chhatrapati Sambhajinagar. Static HTML/CSS/JS, no runtime dependencies, generate
 ## Run it
 
 ```bash
-npm start          # builds into /site and serves http://localhost:4173
+npm run dev        # build, serve http://localhost:4173 and rebuild when anything in /src changes
+npm start          # build once and serve
 npm run build      # build only; deploy the /site folder
 ```
 
-Node 18+ required. Nothing to install.
+Node 18+ required. Nothing to install (`npm install` is not needed). If port 4173 is busy: `set PORT=4174` then `npm run dev`.
 
 ## Structure
 
@@ -35,13 +36,31 @@ Home (`index.html`), About Us, Our Services, Industries, For Job Seekers (`caree
 plus Privacy Notice and `components.html` (component library, `noindex`, excluded from sitemap/robots).
 
 Homepage order follows the brief: hero with Hire Manpower / Find a Job → verified trust indicators → service cards →
-why GSMS → how it works → industries → training and quality → enquiry form → footer.
+why GS Manpower → how it works → industries → training and quality → enquiry form → footer.
 
 ## Design system
 
-- Palette: navy `#101F36`, royal blue `#4777B8`, silver `#AAB4C1`, soft white `#F6F8FB`. Derived shades only for
-  contrast/states. Royal blue on white is 4.6:1, so **blue text on light backgrounds uses `--color-blue-strong` `#3A65A0`**.
-- Type: Manrope (headings), Inter (body), Noto Sans Devanagari in the fallback stack for Marathi.
+Source of truth: **GS Manpower Brand Guidelines v1.0 (October 2026)**. It supersedes the palette and fonts in the
+original design brief.
+
+- **Palette:** Command Navy `#14213D` (primary), Shift Saffron `#F2A007` (accent), Site Paper `#F6F4EF` (ground),
+  Steel `#5B6477` (secondary text), Care Teal `#0E7C70` (GS Care division only). Proportion 60 navy / 25 paper-white /
+  5 steel / 10 saffron. Derived shades in `tokens.css` are for states and contrast only.
+- **Saffron rules:** a signal, not a background. Use it for the figure in the mark and **one** call to action per
+  layout (`.btn-primary`, navy text on saffron). Other solid buttons use `.btn-navy`. Never saffron text on white/paper.
+- **Type:** Archivo 800/900 for headlines and the wordmark (H1 40/44, H2 24/30), Manrope 400–700 for body (15/24) and
+  labels (700, caps, +16% tracking), Mukta 600/800 for all Devanagari. Never letter-space Marathi or Hindi.
+- **Logo:** the "G Guardian" mark (navy G around a saffron worker). Files in `src/assets/img/`: `gs-mark.svg`,
+  `gs-mark-reversed.svg` (footer), `gs-mark-care.svg` (GS Care), `gs-mark-mono-black.svg`, `gs-mark-mono-white.svg`.
+  **These are an interim redraw** from the guideline pages. Replace them with the master `GS_Manpower_Mark.svg` / logo
+  files when supplied (keep the same file names). Header uses the primary horizontal lockup (mark + GS MANPOWER +
+  STAFFING · HEALTHCARE · INDUSTRY), footer the reversed one. No shadows, effects, recolouring or retyping. The
+  descriptor drops below 360 px screen width.
+- **Divisions:** GS Care (teal G) and GS Industrial (navy G). The site uses the master logo; division marks label the
+  division sections on Home and Services.
+- **Voice:** plain, punctual, provable. Promise only numbers the company keeps (replacement in 24 hours, PF/ESIC
+  compliant, police-verified). Never "best", "No. 1" or "world-class". Client pages lead in English; the job-seeker
+  page leads in Marathi with a Hindi line for MIDC migrant workers.
 - Status is always colour + icon + word. No exclamation marks or emoji in copy.
 - Components (see `/components.html`): buttons, link-arrow, card / card--link, tile, feature, trust item, badge,
   notice, steps, photo placeholder, CTA band, form fields, choice chips, consent banner, header, footer, WhatsApp float.
@@ -55,7 +74,12 @@ Search the source for `[` placeholders, `VERIFY` and `OWNER TO CONFIRM` comments
       (Udyam / Shops & Establishment, contract labour licence, EPF, ESIC, GSTIN). Remove any not held.
 - [ ] Company history / founders on About
 - [ ] Job-seeker benefits list matches actual practice; "no fee for job seekers" is company policy
-- [ ] "Reply within one working day" is a promise the team can keep
+- [ ] "Reply within one working day", "replacement within 24 hours", "police-verified" and "PF and ESIC compliant"
+      are promises kept on every deployment
+- [ ] GS Care nurses/technicians: registration checks described on Services match practice
+- [ ] **Marathi and Hindi copy** on For Job Seekers reviewed by native speakers
+- [ ] Email `info@gsmanpower.in` exists (or change it in `site.json`)
+- [ ] Master logo files (`GS_Manpower_Mark.svg`, `GS_Manpower_Logo_*`) dropped into `src/assets/img/`
 - [ ] Privacy notice reviewed by a legal adviser (DPDP Act 2023); grievance officer named; retention periods agreed
 - [ ] Commissioned photography (see below)
 
@@ -120,7 +144,7 @@ Search Console, an OG share image (1200×630) added to `layout.html`.
 - `lang="en-IN"` on every page, `hreflang` placeholder comment in `layout.html`, Devanagari font in the stacks.
 - Plan: add `src/pages/mr/*.html` and `src/content/site.mr.json`, extend `build.js` to output `/mr/`, set
   `lang="mr-IN"`, add reciprocal `hreflang` links, and enable the मराठी link in the footer (currently disabled).
-- Keep UI strings out of `main.js` where possible (form messages are in `data-` attributes and `MESSAGES`).
+- Fonts for Marathi are already loaded (Mukta). Keep UI strings out of `main.js` where possible (form messages are in `data-` attributes and `MESSAGES`).
 
 ## Accessibility
 

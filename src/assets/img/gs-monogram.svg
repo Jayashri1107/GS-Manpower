@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="GS monogram">
-  <rect width="48" height="48" rx="11" fill="#101F36"/>
-  <rect x="3" y="3" width="42" height="42" rx="8.5" fill="none" stroke="#AAB4C1" stroke-opacity=".45" stroke-width="1"/>
-  <g fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(1 0)">
-    <path d="M22.1 18.9A8 8 0 1 0 24 24H18" stroke="#F6F8FB"/>
-    <path d="M35.46 18A4 4 0 1 0 32 24A4 4 0 1 1 28.54 30" stroke="#4777B8"/>
-  </g>
-</svg>

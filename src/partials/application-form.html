@@ -1,6 +1,6 @@
 <form class="form-card" action="#" method="post" enctype="multipart/form-data" data-form="job-application" data-endpoint="{{applicationEndpoint}}"
       data-success="Thank you. Your application has been received. If your profile matches an opening, our recruitment team will call you.">
-  <h3>Apply for a job</h3>
+  <h3><span lang="mr">नोकरीसाठी अर्ज</span> · Apply for a job</h3>
   <p class="lead">It takes about two minutes. A resume is helpful but not required.</p>
   <div class="form-grid">
     <div class="field">
@@ -16,13 +16,16 @@
       <label for="ap-role">Job you want <span class="req">(required)</span></label>
       <select class="select" id="ap-role" name="role" required data-error="Please choose a job.">
         <option value="">Choose a job</option>
+        <option>GNM / ANM nurse</option>
+        <option>GDA / ward attendant</option>
+        <option>OT / lab technician</option>
         <option>Housekeeping staff</option>
-        <option>Patient attendant (non-clinical)</option>
         <!-- if:security --><option>Security guard</option><!-- endif:security -->
         <option>Office assistant or receptionist</option>
         <option>Data entry or back office</option>
-        <option>Machine operator or helper</option>
-        <option>Loader, packer or store helper</option>
+        <option>Machine operator</option>
+        <option>Helper or loader</option>
+        <option>Store or packing staff</option>
         <option>Supervisor</option>
         <option>Other</option>
       </select>

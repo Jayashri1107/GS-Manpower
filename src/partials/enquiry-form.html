@@ -1,5 +1,5 @@
 <form class="form-card" action="#" method="post" data-form="employer-enquiry" data-endpoint="{{enquiryEndpoint}}"
-      data-success="Thank you. Your manpower enquiry has been received. Our team will call you within one working day.">
+      data-success="Thank you. Your enquiry has been received. Our team will call you within one working day.">
   <h3>Manpower enquiry</h3>
   <p class="lead">Tell us what you need. We reply within one working day.</p>
   <div class="form-grid">
@@ -24,13 +24,26 @@
       <label for="eq-role">Role needed <span class="req">(required)</span></label>
       <select class="select" id="eq-role" name="role" required data-error="Please choose a role.">
         <option value="">Choose a role</option>
-        <option>Hospital housekeeping</option>
-        <option>Patient attendants (non-clinical)</option>
+        <optgroup label="GS Care – hospitals">
+          <option>GNM / ANM nurses</option>
+          <option>GDA and ward attendants</option>
+          <option>OT / lab technicians</option>
+          <option>Housekeeping for clinical areas</option>
+          <option>Front office and billing</option>
+        </optgroup>
+        <optgroup label="GS Industrial – plants and warehouses">
+          <option>Machine operators</option>
+          <option>Helpers and loaders</option>
+          <option>Store and packing staff</option>
+          <option>Plant housekeeping</option>
+          <option>Contract labour</option>
         <!-- if:security --><option>Security guards</option><!-- endif:security -->
-        <option>Office administration</option>
-        <option>Industrial workforce</option>
-        <option>Recruitment (permanent hiring)</option>
-        <option>Other or several roles</option>
+        </optgroup>
+        <optgroup label="Other">
+          <option>Office administration</option>
+          <option>Recruitment (permanent hiring)</option>
+          <option>Several roles</option>
+        </optgroup>
       </select>
     </div>
     <div class="field">

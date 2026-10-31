@@ -3,7 +3,7 @@
 Corporate website for an institutional manpower company in Chhatrapati Sambhajinagar.
 
 ```bash
-npm start   # build and preview at http://localhost:4173
+npm run dev   # build, preview at http://localhost:4173, auto-rebuild on save
 ```
 
 Edit contact details in `src/content/site.json`. Full developer handoff: [HANDOFF.md](HANDOFF.md).

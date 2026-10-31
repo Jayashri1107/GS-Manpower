@@ -1,9 +1,9 @@
-<!--meta {"slug":"components","noindex":true,"title":"Component Library | GS Manpower Services","description":"Design tokens and UI components for the GS Manpower Services website."} -->
+<!--meta {"slug":"components","noindex":true,"title":"Component Library | GS Manpower","description":"Design tokens, logo versions and UI components for the GS Manpower website, from Brand Guidelines v1.0."} -->
     <section class="page-hero">
       <div class="container">
-        <p class="eyebrow">Design system v1.0</p>
+        <p class="eyebrow">Brand Guidelines v1.0 · October 2026</p>
         <h1>Component library</h1>
-        <p class="lead">Tokens and building blocks used across the site. Source: <code>src/assets/css/tokens.css</code> and <code>styles.css</code>. Not indexed by search engines.</p>
+        <p class="lead">Tokens, logo versions and building blocks used across the site. Source: <code>src/assets/css/tokens.css</code>, <code>styles.css</code> and <code>src/assets/img/</code>. Not indexed by search engines.</p>
       </div>
     </section>
 
@@ -11,41 +11,92 @@
       <div class="container">
 
         <div class="lib-section">
-          <h2>Colour</h2>
-          <p class="lead">Brand colours first; derived shades exist only for contrast and states.</p>
-          <div class="grid grid-4">
-            <div class="swatch"><div class="swatch-chip chip-navy"></div><div class="swatch-body"><strong>Midnight navy</strong>#101F36 · --color-navy · text, dark sections</div></div>
-            <div class="swatch"><div class="swatch-chip chip-blue"></div><div class="swatch-body"><strong>Royal blue</strong>#4777B8 · --color-blue · primary buttons, accents</div></div>
-            <div class="swatch"><div class="swatch-chip chip-silver"></div><div class="swatch-body"><strong>Silver grey</strong>#AAB4C1 · --color-silver · borders, labels on navy</div></div>
-            <div class="swatch"><div class="swatch-chip chip-white"></div><div class="swatch-body"><strong>Soft white</strong>#F6F8FB · --color-white · page background</div></div>
-            <div class="swatch"><div class="swatch-chip chip-blue-strong"></div><div class="swatch-body"><strong>Blue strong</strong>#3A65A0 · links and blue text on light (AA)</div></div>
-            <div class="swatch"><div class="swatch-chip chip-blue-tint"></div><div class="swatch-body"><strong>Blue tint</strong>#E8EEF7 · icon tiles, notices</div></div>
-            <div class="swatch"><div class="swatch-chip chip-navy-80"></div><div class="swatch-body"><strong>Navy 80</strong>#22385A · photo frames, hover on navy</div></div>
-            <div class="swatch"><div class="swatch-chip chip-silver-light"></div><div class="swatch-body"><strong>Silver light</strong>#DDE3EB · card and input borders</div></div>
+          <h2>Logo versions</h2>
+          <p class="lead">Use the primary horizontal lockup wherever it fits. Clear space on every side: the width of the saffron figure. Minimum screen size: lockup 160 px wide (drop the descriptor below that), mark 16 px. Never stretch, rotate, recolour, swap colours, add shadows, or retype the wordmark.</p>
+          <p class="notice"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><span>The mark files here are an interim redraw from the guidelines. Replace them with the master <code>GS_Manpower_Mark.svg</code> and logo files when supplied.</span></p>
+          <div class="grid grid-3 mt-6">
+            <div class="logo-tile">
+              <div class="logo-stage"><span class="brand"><img src="assets/img/gs-mark.svg" width="44" height="44" alt=""><span class="brand-text"><span class="brand-name">GS Manpower</span><span class="brand-sub">Staffing · Healthcare · Industry</span></span></span></div>
+              <p><strong>1 · Primary horizontal.</strong> Default: website header, letterhead, proposals.</p>
+            </div>
+            <div class="logo-tile">
+              <div class="logo-stage"><span class="brand logo-stack"><img src="assets/img/gs-mark.svg" width="64" height="64" alt=""><span class="brand-text"><span class="brand-name">GS Manpower</span><span class="brand-sub">Staffing · Healthcare · Industry</span></span></span></div>
+              <p><strong>2 · Stacked.</strong> Square spaces: social profile, uniforms, standees.</p>
+            </div>
+            <div class="logo-tile">
+              <div class="logo-stage"><img src="assets/img/gs-mark.svg" width="72" height="72" alt="GS Manpower mark"></div>
+              <p><strong>3 · Mark only.</strong> Favicon, app icon, WhatsApp picture. File: <code>gs-mark.svg</code>.</p>
+            </div>
+            <div class="logo-tile">
+              <div class="logo-stage logo-stage--navy"><span class="brand brand--reversed"><img src="assets/img/gs-mark-reversed.svg" width="44" height="44" alt=""><span class="brand-text"><span class="brand-name">GS Manpower</span><span class="brand-sub">Staffing · Healthcare · Industry</span></span></span></div>
+              <p><strong>4 · Reversed.</strong> On navy or dark photos. G turns white, worker stays saffron. Used in the footer.</p>
+            </div>
+            <div class="logo-tile">
+              <div class="logo-stage"><span class="brand brand--mono-black"><img src="assets/img/gs-mark-mono-black.svg" width="44" height="44" alt=""><span class="brand-text"><span class="brand-name">GS Manpower</span><span class="brand-sub">Staffing · Healthcare · Industry</span></span></span></div>
+              <p><strong>5 · Mono black.</strong> Stamps, fax, one-colour newspaper ads.</p>
+            </div>
+            <div class="logo-tile">
+              <div class="logo-stage logo-stage--black"><span class="brand brand--mono-white"><img src="assets/img/gs-mark-mono-white.svg" width="44" height="44" alt=""><span class="brand-text"><span class="brand-name">GS Manpower</span><span class="brand-sub">Staffing · Healthcare · Industry</span></span></span></div>
+              <p><strong>6 · Mono white.</strong> Embossing, etching, single-colour dark prints.</p>
+            </div>
           </div>
+        </div>
+
+        <div class="lib-section">
+          <h2>Divisions</h2>
+          <p class="lead">Same mark and fonts; only the colour of the G and the division name change. Division marks go on staff IDs, uniforms and sector proposals. The website uses the master logo.</p>
+          <div class="grid grid-2">
+            <div class="card division division--care"><div class="division-head"><img src="assets/img/gs-mark-care.svg" width="52" height="52" alt=""><div><p class="division-name">GS Care</p><p class="division-of">A GS Manpower division</p></div></div><p>Care Teal G. Hospitals and clinics.</p></div>
+            <div class="card division"><div class="division-head"><img src="assets/img/gs-mark.svg" width="52" height="52" alt=""><div><p class="division-name">GS Industrial</p><p class="division-of">A GS Manpower division</p></div></div><p>Command Navy G. Plants, MIDC and warehouses.</p></div>
+          </div>
+        </div>
+
+        <div class="lib-section">
+          <h2>Colour</h2>
+          <p class="lead">Proportion: 60 navy · 25 paper/white · 5 steel · 10 saffron. Saffron is a signal, not a background: the centre figure and one call to action per layout. Never saffron text on white or paper.</p>
+          <div class="grid grid-4">
+            <div class="swatch"><div class="swatch-chip chip-navy"></div><div class="swatch-body"><strong>Command Navy</strong>#14213D · --color-navy · primary</div></div>
+            <div class="swatch"><div class="swatch-chip chip-saffron"></div><div class="swatch-body"><strong>Shift Saffron</strong>#F2A007 · --color-saffron · accent</div></div>
+            <div class="swatch"><div class="swatch-chip chip-paper"></div><div class="swatch-body"><strong>Site Paper</strong>#F6F4EF · --color-paper · ground</div></div>
+            <div class="swatch"><div class="swatch-chip chip-steel"></div><div class="swatch-body"><strong>Steel</strong>#5B6477 · --color-steel · secondary text</div></div>
+            <div class="swatch"><div class="swatch-chip chip-teal"></div><div class="swatch-body"><strong>Care Teal</strong>#0E7C70 · --color-teal · GS Care only</div></div>
+            <div class="swatch"><div class="swatch-chip chip-white"></div><div class="swatch-body"><strong>White</strong>#FFFFFF · --color-surface · cards, forms</div></div>
+            <div class="swatch"><div class="swatch-chip chip-navy-tint"></div><div class="swatch-body"><strong>Navy tint</strong>#E8EAF0 · icon tiles, notices</div></div>
+            <div class="swatch"><div class="swatch-chip chip-line"></div><div class="swatch-body"><strong>Line</strong>#E3E0D8 · borders</div></div>
+          </div>
+          <p class="mt-6"><strong>Contrast pass:</strong> white on navy, navy on saffron, navy on paper, white on teal. <strong>Fail:</strong> saffron text on white or paper.</p>
         </div>
 
         <div class="lib-section">
           <h2>Typography</h2>
-          <div class="type-sample"><small>H1 · Manrope 800 · --text-4xl (36–60px)</small><h1>Dependable people</h1></div>
-          <div class="type-sample"><small>H2 · Manrope 700 · --text-3xl (30–44px)</small><h2>Staffing for institutions</h2></div>
-          <div class="type-sample"><small>H3 · Manrope 700 · --text-xl (20–24px)</small><h3>Hospital housekeeping</h3></div>
-          <div class="type-sample"><small>Lead · Inter 400 · 18px</small><p class="lead">Recruits, verifies, trains and supervises your staff.</p></div>
-          <div class="type-sample"><small>Body · Inter 400 · 16px / 1.65</small><p>Body copy for descriptions and paragraphs. Marathi text falls back to Noto Sans Devanagari: <span lang="mr">विश्वासार्ह मनुष्यबळ सेवा</span></p></div>
-          <div class="type-sample"><small>Eyebrow · Inter 600 · 13px uppercase</small><p class="eyebrow">Section label</p></div>
+          <div class="type-sample"><small>Hero display · Archivo 900</small><p class="tagline on-light">Right people. Right shift.</p></div>
+          <div class="type-sample"><small>H1 · Archivo 800 · 40/44</small><h1>Ready by 7 AM.</h1></div>
+          <div class="type-sample"><small>H2 · Archivo 800 · 24/30</small><h2>12 trained GDAs, deployed in 72 hours.</h2></div>
+          <div class="type-sample"><small>Body · Manrope 400 · 15/24</small><p>Verified, trained and deployed staff for hospitals and factories across Chhatrapati Sambhajinagar. Replacement within 24 hours.</p></div>
+          <div class="type-sample"><small>Label · Manrope 700 · caps · +16%</small><p class="eyebrow">Staffing · Healthcare · Industry</p></div>
+          <div class="type-sample"><small>Marathi / Hindi · Mukta 600 and 800</small><p lang="mr" class="lang-lead on-light">योग्य माणूस, योग्य जागी. · भरती सुरू आहे</p><p lang="hi">सही इंसान, सही जगह.</p></div>
+        </div>
+
+        <div class="lib-section">
+          <h2>Voice</h2>
+          <div class="grid grid-2">
+            <div class="notice form-status--success"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><p><strong>Say:</strong> "12 trained GDAs, deployed in 72 hours." "Joining Monday, 7 AM, Gate 3."</p></div>
+            <div class="notice form-status--error"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><p><strong>Don't say:</strong> "Best manpower solutions in Maharashtra." No "best", "No. 1" or "world-class".</p></div>
+          </div>
+          <p class="mt-6">Plain, punctual, provable. Client-facing pages lead in English; worker-facing pages lead in Marathi, with Hindi for migrant workers in MIDC.</p>
         </div>
 
         <div class="lib-section">
           <h2>Buttons</h2>
-          <p class="lead">One primary action per section. Minimum touch height 48px (40px small).</p>
+          <p class="lead">One saffron button per layout. Navy for other solid actions. Minimum touch height 48 px (40 px small).</p>
           <div class="demo-row">
             <a class="btn btn-primary" href="#">Hire Manpower <svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-navy" href="#">Navy action</a>
             <a class="btn btn-secondary" href="#">Find a Job</a>
-            <a class="btn btn-primary btn-sm" href="#">Small primary</a>
             <a class="link-arrow" href="#">Text link with arrow <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
           <div class="demo-dark demo-row mt-6">
-            <a class="btn btn-primary" href="#">Primary on navy</a>
+            <a class="btn btn-primary" href="#">Saffron on navy</a>
             <a class="btn btn-secondary btn-on-dark" href="#">Secondary on navy</a>
           </div>
         </div>
@@ -62,8 +113,6 @@
           <div class="grid grid-2 mt-6">
             <div class="notice"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><p><strong>Notice.</strong> Scope limits and helpful information.</p></div>
             <div class="notice notice--warning"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><p><strong>Warning.</strong> Fraud alerts and important cautions.</p></div>
-            <div class="notice form-status form-status--success is-visible"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><p>Form sent successfully.</p></div>
-            <div class="notice form-status form-status--error is-visible"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><p>Please check the highlighted fields.</p></div>
           </div>
         </div>
 
@@ -73,14 +122,14 @@
             <article class="card card--link">
               <span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-hospital"/></svg></span>
               <h3>Service card</h3>
-              <p>Whole card is clickable; hover lifts the border to royal blue.</p>
+              <p>Whole card is clickable.</p>
               <a class="link-arrow" href="#">Card link <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </article>
             <div>
               <div class="tile"><span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-factory"/></svg></span><div><strong>Industry tile</strong><span>Short supporting line</span></div></div>
               <div class="feature mt-6"><span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></span><div><h3>Feature</h3><p>Icon, title and a sentence.</p></div></div>
             </div>
-            <div class="trust-item"><svg class="icon" aria-hidden="true"><use href="#i-verified"/></svg><div><strong>Trust item</strong><span>Only for credentials backed by a document</span></div></div>
+            <div class="trust-item"><svg class="icon" aria-hidden="true"><use href="#i-verified"/></svg><div><strong>Trust item</strong><span>Only for promises we keep and documents we hold</span></div></div>
           </div>
         </div>
 
@@ -99,22 +148,17 @@
         </div>
 
         <div class="lib-section">
-          <h2>Photo placeholder</h2>
-          <p class="lead">Holds the layout until commissioned photography arrives. Swap for <code>&lt;img&gt;</code> inside the same <code>figure.photo</code>.</p>
+          <h2>Photo placeholder and consent banner</h2>
           <div class="grid grid-2">
             <figure class="photo">
               <div class="photo-art"></div>
-              <img class="photo-mark" src="assets/img/gs-monogram.svg" alt="" width="72" height="72">
               <figcaption class="photo-brief"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Photo to commission</strong>Each placeholder carries its shot brief.</span></figcaption>
             </figure>
-            <div>
-              <h3>Consent banner</h3>
-              <section class="consent consent--static" aria-label="Consent banner example">
-                <h2>Your privacy choices</h2>
-                <p>Decline and Allow have equal weight. The banner appears only when an analytics ID is configured.</p>
-                <div class="consent-actions"><button class="btn btn-secondary btn-sm" type="button">Decline</button><button class="btn btn-secondary btn-sm" type="button">Allow analytics</button></div>
-              </section>
-            </div>
+            <section class="consent consent--static" aria-label="Consent banner example">
+              <h2>Your privacy choices</h2>
+              <p>Decline and Allow have equal weight. The banner appears only when an analytics ID is configured.</p>
+              <div class="consent-actions"><button class="btn btn-secondary btn-sm" type="button">Decline</button><button class="btn btn-secondary btn-sm" type="button">Allow analytics</button></div>
+            </section>
           </div>
         </div>
 
@@ -126,13 +170,6 @@
             <li class="step"><h3>Third step</h3><p>Four on desktop.</p></li>
             <li class="step"><h3>Fourth step</h3><p>Stacked on mobile.</p></li>
           </ol>
-        </div>
-
-        <div class="lib-section">
-          <div class="cta-band">
-            <div><h2>CTA band</h2><p>Closes inner pages with one clear action.</p></div>
-            <a class="btn btn-primary" href="#">Hire Manpower</a>
-          </div>
         </div>
 
       </div>

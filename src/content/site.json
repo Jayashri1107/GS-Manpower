@@ -1,10 +1,10 @@
 {
   "siteName": "GS Manpower Services",
-  "baseUrl": "https://www.gsmanpower.example",
+  "baseUrl": "https://www.gsmanpower.in",
   "phoneDisplay": "+91 00000 00000",
   "phoneE164": "+910000000000",
   "whatsapp": "910000000000",
-  "email": "enquiry@gsmanpower.example",
+  "email": "info@gsmanpower.in",
   "addressLine": "[Office address line]",
   "addressCity": "Chhatrapati Sambhajinagar, Maharashtra [PIN]",
   "hours": "Monday to Saturday, 9:30 am – 6:30 pm",
