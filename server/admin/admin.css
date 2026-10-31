@@ -201,3 +201,14 @@ textarea { min-height: 84px; resize: vertical; }
   body.in-app .main { height: 100vh; overflow-y: auto; overscroll-behavior: contain; scroll-padding-top: 16px; }
   body.in-app .detail { top: 0; }
 }
+
+/* Website settings: save bar pinned to the bottom edge of the screen (full width of the content area). */
+.save-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  border-radius: 0; border: 0; border-top: 1px solid var(--color-line);
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  box-shadow: 0 -6px 18px -12px rgba(20, 33, 61, .35);
+}
+@media (min-width: 900px) { .save-bar { left: 236px; padding: 14px 36px; } }
+.settings { padding-bottom: 88px; }
+@media (max-width: 599px) { .save-bar .muted { display: none; } .save-bar .btn { width: 100%; } }
