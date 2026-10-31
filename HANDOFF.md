@@ -100,7 +100,7 @@ Footer "Cookie preferences" reopens the banner. Events sent: `generate_lead` (fo
   headers. Point the domain, then update `baseUrl` and rebuild (canonical URLs, sitemap, robots, JSON-LD).
 - Self-host Manrope/Inter (woff2, subset Latin + Devanagari) to drop the Google Fonts request; then tighten CSP.
 - Photos: serve AVIF/WebP via `<picture>`, explicit width/height, `loading="lazy"` below the fold, hero ≤ 150 KB.
-- Current build: ~25 KB CSS, ~8 KB JS, no framework. Target Lighthouse mobile ≥ 95 performance and 100 accessibility.
+- Current build: ~35 KB CSS, ~10 KB JS (unminified), no framework. Target Lighthouse mobile ≥ 95 performance and 100 accessibility.
 
 ## Content management (CMS)
 
