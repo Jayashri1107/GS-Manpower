@@ -187,6 +187,25 @@ function createApp(cfg, { build } = {}) {
     if (route === '/me') return json(req, res, 200, { ok: true, user: s.user }, refresh);
 
     let m;
+    if ((m = /^\/export\/(enquiry|application)$/.exec(route)) && req.method === 'GET') {
+      const type = m[1];
+      const cols = type === 'enquiry'
+        ? ['createdAt', 'status', 'organisation', 'contact_name', 'phone', 'email', 'role', 'worker_count', 'location', 'timeline', 'shifts', 'notes', 'lang', 'note']
+        : ['createdAt', 'status', 'full_name', 'phone', 'role', 'experience', 'location', 'availability', 'lang', 'note'];
+      // Prefix cells that a spreadsheet would run as a formula (CSV injection).
+      const cell = (v) => {
+        let t = Array.isArray(v) ? v.join(' / ') : String(v ?? '');
+        if (/^[=+\-@\t\r]/.test(t)) t = `'${t}`;
+        return `"${t.replace(/"/g, '""')}"`;
+      };
+      const rows = store.list(type).map((r) => cols.map((c) => cell(r[c])).join(','));
+      store.audit(s.user, 'export', `${type} (${rows.length})`);
+      return send(req, res, 200, '﻿' + [cols.join(','), ...rows].join('\r\n'), {
+        'Content-Type': 'text/csv; charset=utf-8',
+        'Content-Disposition': `attachment; filename="gs-manpower-${type}-${new Date().toISOString().slice(0, 10)}.csv"`,
+        'Cache-Control': 'no-store',
+      });
+    }
     if ((m = /^\/leads\/(enquiry|application)$/.exec(route)) && req.method === 'GET') {
       store.audit(s.user, 'list', m[1]);
       const items = store.list(m[1]).map(({ resume, ...r }) => ({ ...r, hasResume: !!resume }));

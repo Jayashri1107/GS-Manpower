@@ -167,6 +167,20 @@ test('admin can edit website settings; bad values are refused', async () => {
   assert.strictEqual(JSON.parse(fs.readFileSync(cfg.contentFile, 'utf8')).phoneDisplay, '+91 98765 43210');
 });
 
+test('CSV export is logged and neutralises spreadsheet formulas', async () => {
+  await post('/api/enquiry', enquiryForm({ organisation: '=HYPERLINK("http://evil")', notes: '+1 test' }));
+  const cookie = await login();
+  const res = await fetch(base + '/api/admin/export/enquiry', { headers: { 'X-GSM-Admin': '1', Cookie: cookie } });
+  assert.strictEqual(res.status, 200);
+  assert.match(res.headers.get('content-type'), /text\/csv/);
+  const csv = await res.text();
+  assert.ok(csv.includes(`"'=HYPERLINK(""http://evil"")"`), 'formula must be prefixed with a quote');
+  assert.ok(csv.includes(`"'+1 test"`));
+  assert.strictEqual((await fetch(base + '/api/admin/export/enquiry', { headers: { 'X-GSM-Admin': '1' } })).status, 401);
+  const audit = await (await admin('GET', '/audit', null, cookie)).json();
+  assert.ok(audit.items.some((a) => a.action === 'export'));
+});
+
 test('logout ends the session', async () => {
   const cookie = await login();
   assert.strictEqual((await admin('POST', '/logout', null, cookie)).status, 200);

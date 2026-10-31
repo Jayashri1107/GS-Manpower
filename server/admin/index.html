@@ -9,24 +9,38 @@
   <link rel="icon" href="/assets/img/gs-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Manrope:wght@400;500;600;700&family=Mukta:wght@400;600&display=swap">
   <link rel="stylesheet" href="/assets/css/tokens.css">
   <link rel="stylesheet" href="/admin/admin.css">
   <script src="/admin/admin.js" defer></script>
 </head>
 <body>
-  <header class="bar">
-    <span class="brand"><img src="/assets/img/gs-mark-reversed.svg" width="36" height="36" alt=""><span><strong>GS MANPOWER</strong><small>Admin</small></span></span>
-    <div class="bar-right" data-when="in" hidden>
-      <span data-user></span>
-      <a href="/" target="_blank" rel="noopener">View website</a>
-      <button type="button" class="btn btn-ghost" data-logout>Log out</button>
-    </div>
-  </header>
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" class="sr-only" aria-hidden="true" focusable="false">
+    <symbol id="a-home" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v9a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="a-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></symbol>
+    <symbol id="a-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3-5.5 6.5-5.5s6 2 6.5 5.5M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c2 .7 3.2 2.5 3.5 5.2"/></symbol>
+    <symbol id="a-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+    <symbol id="a-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+    <symbol id="a-phone" viewBox="0 0 24 24"><path d="M5 4h3.5l2 5-2.4 1.5a11 11 0 0 0 5.4 5.4L15 13.5l5 2V19a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="a-chat" viewBox="0 0 24 24"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.1z"/></symbol>
+    <symbol id="a-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+    <symbol id="a-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="a-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+    <symbol id="a-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.6-4.5M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5M20 20v-4h-4"/></symbol>
+    <symbol id="a-back" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+    <symbol id="a-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+    <symbol id="a-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="a-file" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/></symbol>
+    <symbol id="a-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17v.01"/></symbol>
+    <symbol id="a-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="a-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+  </svg>
 
-  <main>
-    <section class="login card" data-when="out" hidden aria-labelledby="login-title">
-      <h1 id="login-title">Admin login</h1>
+  <!-- Login -->
+  <main class="login-wrap" data-when="out" hidden>
+    <section class="login card" aria-labelledby="login-title">
+      <div class="login-brand"><img src="/assets/img/gs-mark.svg" width="48" height="48" alt=""><div><strong>GS MANPOWER</strong><small>Admin panel</small></div></div>
+      <h1 id="login-title">Log in</h1>
       <p class="muted">For GS Manpower staff only. You are logged out after 30 minutes without activity.</p>
       <form data-login novalidate>
         <label for="u">Username</label>
@@ -34,44 +48,80 @@
         <label for="p">Password</label>
         <input id="p" name="password" type="password" autocomplete="current-password" required>
         <p class="msg" role="alert" data-login-msg></p>
-        <button class="btn btn-primary" type="submit">Log in</button>
+        <button class="btn btn-primary btn-block" type="submit">Log in</button>
       </form>
-    </section>
-
-    <section data-when="in" hidden>
-      <nav class="tabs" role="tablist" aria-label="Admin sections">
-        <button role="tab" type="button" data-tab="enquiry" aria-selected="true">Manpower enquiries <span class="count" data-count="enquiry"></span></button>
-        <button role="tab" type="button" data-tab="application" aria-selected="false">Job applications <span class="count" data-count="application"></span></button>
-        <button role="tab" type="button" data-tab="content" aria-selected="false">Website settings</button>
-        <button role="tab" type="button" data-tab="audit" aria-selected="false">Activity log</button>
-      </nav>
-
-      <div class="panel" data-panel="leads">
-        <div class="toolbar">
-          <label>Show <select data-filter>
-            <option value="">All</option><option value="new">New</option><option value="contacted">Contacted</option>
-            <option value="in-progress">In progress</option><option value="closed">Closed</option>
-          </select></label>
-          <button type="button" class="btn btn-ghost" data-refresh>Refresh</button>
-        </div>
-        <div class="split">
-          <div class="list card" data-list aria-live="polite"></div>
-          <div class="detail card" data-detail><p class="muted">Select a record to see the details.</p></div>
-        </div>
-      </div>
-
-      <div class="panel card" data-panel="content" hidden>
-        <h2>Website settings</h2>
-        <p class="muted">Changes go live on the website as soon as you save. Fields marked with a placeholder such as [to be added] still need real values.</p>
-        <form data-content novalidate></form>
-      </div>
-
-      <div class="panel card" data-panel="audit" hidden>
-        <h2>Activity log</h2>
-        <p class="muted">Who logged in, viewed, changed or deleted records. Personal details are never written to this log.</p>
-        <table class="table"><thead><tr><th>When</th><th>User</th><th>Action</th><th>Record</th></tr></thead><tbody data-audit></tbody></table>
-      </div>
+      <a class="login-back" href="/">← Back to the website</a>
     </section>
   </main>
+
+  <!-- App -->
+  <div class="app" data-when="in" hidden>
+    <aside class="sidebar">
+      <div class="side-brand"><img src="/assets/img/gs-mark-reversed.svg" width="36" height="36" alt=""><div><strong>GS MANPOWER</strong><small>Admin panel</small></div></div>
+      <nav class="side-nav" aria-label="Admin sections">
+        <button type="button" data-tab="dashboard"><svg class="ic"><use href="#a-home"/></svg><span>Dashboard</span></button>
+        <button type="button" data-tab="enquiry"><svg class="ic"><use href="#a-briefcase"/></svg><span>Enquiries</span><span class="count" data-count="enquiry"></span></button>
+        <button type="button" data-tab="application"><svg class="ic"><use href="#a-users"/></svg><span>Applications</span><span class="count" data-count="application"></span></button>
+        <button type="button" data-tab="content"><svg class="ic"><use href="#a-settings"/></svg><span>Website settings</span><span class="count count--warn" data-count="content"></span></button>
+        <button type="button" data-tab="audit"><svg class="ic"><use href="#a-list"/></svg><span>Activity log</span></button>
+      </nav>
+      <div class="side-foot">
+        <a href="/" target="_blank" rel="noopener"><svg class="ic"><use href="#a-external"/></svg><span>View website</span></a>
+        <button type="button" data-logout><svg class="ic"><use href="#a-out"/></svg><span>Log out <small data-user></small></span></button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- Dashboard -->
+      <section class="view" data-view="dashboard" hidden>
+        <header class="view-head"><div><h1>Dashboard</h1><p class="muted" data-greeting></p></div></header>
+        <div class="stats" data-stats></div>
+        <div class="dash-grid">
+          <div class="card"><div class="card-head"><h2>Latest enquiries</h2><button type="button" class="link" data-go="enquiry">View all</button></div><div data-recent="enquiry"></div></div>
+          <div class="card"><div class="card-head"><h2>Latest applications</h2><button type="button" class="link" data-go="application">View all</button></div><div data-recent="application"></div></div>
+        </div>
+        <div class="card notice-card" data-setup hidden></div>
+      </section>
+
+      <!-- Leads (enquiries and applications) -->
+      <section class="view" data-view="leads" hidden>
+        <header class="view-head">
+          <div><h1 data-leads-title>Enquiries</h1><p class="muted" data-leads-sub></p></div>
+          <div class="head-actions">
+            <button type="button" class="btn btn-ghost" data-refresh><svg class="ic"><use href="#a-refresh"/></svg>Refresh</button>
+            <button type="button" class="btn btn-navy" data-export><svg class="ic"><use href="#a-download"/></svg>Export CSV</button>
+          </div>
+        </header>
+        <div class="toolbar">
+          <label class="search"><svg class="ic"><use href="#a-search"/></svg><span class="sr-only">Search</span><input type="search" data-search placeholder="Search name, phone, role, location"></label>
+          <div class="filters" role="group" aria-label="Filter by status" data-filters>
+            <button type="button" data-filter="" aria-pressed="true">All</button>
+            <button type="button" data-filter="new" aria-pressed="false">New</button>
+            <button type="button" data-filter="contacted" aria-pressed="false">Contacted</button>
+            <button type="button" data-filter="in-progress" aria-pressed="false">In progress</button>
+            <button type="button" data-filter="closed" aria-pressed="false">Closed</button>
+          </div>
+        </div>
+        <div class="leads">
+          <div class="list card" data-list aria-live="polite"></div>
+          <div class="detail card" data-detail></div>
+        </div>
+      </section>
+
+      <!-- Website settings -->
+      <section class="view" data-view="content" hidden>
+        <header class="view-head"><div><h1>Website settings</h1><p class="muted">Changes go live on the English and Marathi website as soon as you save.</p></div></header>
+        <form data-content novalidate></form>
+      </section>
+
+      <!-- Activity log -->
+      <section class="view" data-view="audit" hidden>
+        <header class="view-head"><div><h1>Activity log</h1><p class="muted">Who logged in, viewed, changed, exported or deleted records. Names and phone numbers are never written here.</p></div></header>
+        <div class="card table-card"><table class="table"><thead><tr><th>When</th><th>User</th><th>What happened</th><th>Record</th></tr></thead><tbody data-audit></tbody></table></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" role="status" aria-live="polite" data-toast hidden></div>
 </body>
 </html>

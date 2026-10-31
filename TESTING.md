@@ -495,6 +495,29 @@ For each of the 7 pages (Home, About, Services, Industries, For Job Seekers, Con
 10. Leave the admin panel open without touching it for 31 minutes, then click a tab.
    - [ ] You are asked to log in again.
 
+### 21b. Admin dashboard, search, quick actions and export
+
+1. After logging in you land on **Dashboard**.
+   - [ ] Four boxes: New enquiries, New applications, Workers requested (open enquiries), Received in the last 7 days.
+         Clicking a box opens the matching list.
+   - [ ] "Latest enquiries" and "Latest applications" show the newest 5; clicking one opens that record.
+   - [ ] A yellow box lists website settings that still show a placeholder, with a link to Website settings.
+2. Left menu (on a phone: the row at the top).
+   - [ ] Enquiries and Applications show a saffron number = how many are still **New**; Website settings shows how many placeholders are left.
+3. **Enquiries** list:
+   - [ ] Type part of a name, phone number, role or location in the search box → the list narrows as you type.
+   - [ ] Click the filter buttons All / New / Contacted / In progress / Closed → the list changes; an empty filter says so.
+4. Open a record:
+   - [ ] **Call** button opens the phone dialler; **WhatsApp** opens a chat with that number; **Email** appears only when an email was given.
+   - [ ] For applications with a resume, the **Resume** button downloads the file.
+   - [ ] Change Status and the note → **Save changes** → a dark "Saved." message appears at the bottom and the badge updates.
+5. **Export CSV** (top right of each list):
+   - [ ] Downloads `gs-manpower-enquiry-<date>.csv` (or `…application…`), which opens in Excel or Google Sheets with one row per record.
+   - [ ] The Activity log shows "Exported CSV".
+   - Keep exported files private and delete them when no longer needed: they contain personal details.
+6. On a phone (F12 → Ctrl + Shift + M → iPhone):
+   - [ ] Nothing is cut off at the right; opening a record shows **Back to list**.
+
 ## 22. Marathi website
 
 1. On any English page click **मराठी** in the footer.
