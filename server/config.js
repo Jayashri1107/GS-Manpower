@@ -35,6 +35,7 @@ function getConfig() {
   return {
     production,
     port: Number(env.PORT || 4173),
+    host: env.HOST || undefined, // e.g. 127.0.0.1 behind Caddy or Nginx; empty = all interfaces
     dataDir,
     dataKey,
     contentFile: path.join(dataDir, 'content.json'),

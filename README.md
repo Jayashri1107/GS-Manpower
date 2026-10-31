@@ -24,6 +24,7 @@ If port 4173 is busy, the server moves to the next free port and prints it.
 | `scripts/` | `setup.js` (secrets), `illustrations.js`, `brand-images.js`, `print-items.js` |
 | `print/` | Visiting card, staff IDs and recruitment post (Brand Guidelines p.10) |
 | `docs/DEPLOY.md` | **How to put the site online** (Render or Docker), domain, HTTPS, notifications |
+| `docs/DEPLOY-EC2.md` + `deploy/` | Step-by-step **AWS EC2** deployment (Ubuntu, systemd, Caddy HTTPS) with ready-made config files |
 | `docs/PHOTO_PROMPTS.md` | AI image prompts and how to swap illustrations for photos |
 | `HANDOFF.md` | Developer handoff: design system, security model, decisions, open items |
 | `TESTING.md` | Step-by-step manual test guide |

@@ -1,0 +1,23 @@
+# Caddy reverse proxy with automatic HTTPS (Let's Encrypt).
+# Install: sudo cp deploy/Caddyfile /etc/caddy/Caddyfile && sudo systemctl reload caddy
+# DNS must already point gsmanpower.in and www.gsmanpower.in at this server's Elastic IP.
+
+gsmanpower.in {
+	redir https://www.gsmanpower.in{uri} permanent
+}
+
+www.gsmanpower.in {
+	encode zstd gzip
+	# Forms allow a 5 MB resume; leave some room for the rest of the form.
+	request_body {
+		max_size 7MB
+	}
+	# Caddy adds X-Forwarded-For and X-Forwarded-Proto; the app trusts them (TRUST_PROXY=1).
+	reverse_proxy 127.0.0.1:8080
+	log {
+		output file /var/log/caddy/gs-manpower.log {
+			roll_size 10MiB
+			roll_keep 5
+		}
+	}
+}

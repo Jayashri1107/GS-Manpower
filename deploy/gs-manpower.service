@@ -1,0 +1,33 @@
+# systemd service for the GS Manpower website, forms and admin panel.
+# Install: sudo cp deploy/gs-manpower.service /etc/systemd/system/ && sudo systemctl daemon-reload
+#          sudo systemctl enable --now gs-manpower
+[Unit]
+Description=GS Manpower website and admin panel
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=gsm
+Group=gsm
+WorkingDirectory=/opt/gs-manpower
+# Secrets and settings (DATA_KEY, ADMIN_PASSWORD_HASH, ...). Owned by root, mode 600.
+EnvironmentFile=/etc/gs-manpower.env
+ExecStart=/usr/bin/node server/index.js
+Restart=always
+RestartSec=3
+
+# Hardening: the app may only write to its own folder (site build) and the data folder.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/gs-manpower /var/lib/gs-manpower
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

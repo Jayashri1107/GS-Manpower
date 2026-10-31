@@ -320,7 +320,7 @@ function start() {
     if (e.code === 'EADDRINUSE' && !cfg.production && port < lastPort) {
       console.log(`Port ${port} is busy, trying ${port + 1}...`);
       port += 1;
-      server.listen(port);
+      server.listen(port, cfg.host);
     } else {
       console.error(e.code === 'EADDRINUSE' ? `Port ${port} is busy. Close the other preview and try again.` : e);
       process.exit(1);
@@ -331,7 +331,7 @@ function start() {
     console.log(`Admin panel:    http://localhost:${port}/admin${cfg.adminPasswordHash ? '' : '   (not set up yet – run: npm run setup)'}`);
     console.log('Press Ctrl+C to stop.\n');
   });
-  server.listen(port);
+  server.listen(port, cfg.host);
   return server;
 }
 
