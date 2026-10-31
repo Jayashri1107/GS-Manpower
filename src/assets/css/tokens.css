@@ -36,8 +36,8 @@
   --color-warning-tint: #FCF0D9;
 
   /* Type: Archivo display, Manrope body, Mukta for all Devanagari (Marathi / Hindi) */
-  --font-display: "Archivo", "Arial Black", system-ui, sans-serif;
-  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Archivo", "Mukta", "Arial Black", system-ui, sans-serif;
+  --font-body: "Manrope", "Mukta", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-devanagari: "Mukta", "Nirmala UI", "Noto Sans Devanagari", sans-serif;
   --text-xs: 0.8125rem;
   --text-sm: 0.875rem;

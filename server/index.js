@@ -18,7 +18,7 @@ const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.avif': 'image/avif',
   '.xml': 'application/xml', '.txt': 'text/plain; charset=utf-8', '.json': 'application/json', '.ico': 'image/x-icon',
-  '.pdf': 'application/pdf',
+  '.pdf': 'application/pdf', '.webmanifest': 'application/manifest+json',
 };
 const SESSION_IDLE_MS = 30 * 60 * 1000;
 const MAX_BODY = MAX_FILE_BYTES + 512 * 1024;
@@ -245,8 +245,10 @@ function createApp(cfg, { build } = {}) {
 
   async function handler(req, res) {
     try {
-      const url = new URL(req.url, 'http://localhost');
-      const p = decodeURIComponent(url.pathname);
+      // Collapse leading slashes: "//x" would otherwise be read as a host name.
+      const url = new URL(String(req.url).replace(/^\/+/, '/'), 'http://localhost');
+      let p;
+      try { p = decodeURIComponent(url.pathname); } catch { return send(req, res, 400, 'Bad request'); }
 
       if (p === '/healthz') return json(req, res, 200, { ok: true });
       if (p === '/api/enquiry' && req.method === 'POST') return await handleForm(req, res, 'enquiry');

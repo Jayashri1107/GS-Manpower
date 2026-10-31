@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SRC = path.join(__dirname, 'src');
-const OUT = path.join(__dirname, 'site');
+const SITE = path.join(__dirname, 'site');
 const read = (...p) => fs.readFileSync(path.join(SRC, ...p), 'utf8');
 
 function loadConfig() {
@@ -37,6 +37,8 @@ const escapeHtml = (v) => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;')
 
 function build() {
   const config = loadConfig();
+  // Build into a temporary folder and swap it in at the end, so a running server never serves a half-built site.
+  const OUT = `${SITE}.building-${process.pid}`;
 
   function includePartials(html, lang, depth = 0) {
     if (depth > 5) throw new Error('Partials nested too deeply');
@@ -140,6 +142,10 @@ function build() {
   fs.writeFileSync(path.join(OUT, 'robots.txt'),
     `User-agent: *\nAllow: /\nDisallow: /components.html\nDisallow: /admin\nDisallow: /api/\nSitemap: ${config.baseUrl}/sitemap.xml\n`);
 
+  const old = `${SITE}.old-${process.pid}`;
+  if (fs.existsSync(SITE)) fs.renameSync(SITE, old);
+  fs.renameSync(OUT, SITE);
+  fs.rmSync(old, { recursive: true, force: true });
   return sitemap.length;
 }
 

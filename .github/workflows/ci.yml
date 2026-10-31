@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node build.js
+      - run: npm test
+      - name: Create throw-away secrets for the start-up check
+        run: node scripts/setup.js --print | grep -E '^(DATA_KEY|ADMIN_PASSWORD_HASH)=' >> "$GITHUB_ENV"
+      - name: Server starts in production mode
+        run: |
+          NODE_ENV=production DATA_DIR="$RUNNER_TEMP/data" PORT=8080 node server/index.js &
+          sleep 3
+          curl -fsS http://127.0.0.1:8080/healthz
+          curl -fsS -o /dev/null http://127.0.0.1:8080/
+          curl -fsS -o /dev/null http://127.0.0.1:8080/mr/
+          curl -fsS -o /dev/null http://127.0.0.1:8080/admin

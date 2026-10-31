@@ -12,9 +12,11 @@ Do not type real names, real phone numbers or real patient or worker details.
 
 1. Open PowerShell.
 2. Type `cd C:\GS-Manpower` and press Enter.
-3. Type `npm run dev` and press Enter.
-4. Wait for the line `Preview ready: http://localhost:4173` (the number may be 4174 or higher if 4173 is busy).
-5. Open Chrome or Edge and go to the address shown.
+3. **First time only:** type `npm run setup` and press Enter. Write down the admin password it prints.
+   (If it says `.env` already has a key, run `npm run setup -- --password` to get a new password instead.)
+4. Type `npm run dev` and press Enter.
+5. Wait for the line `Website ready: http://localhost:4173` (the number may be 4174 or higher if 4173 is busy).
+6. Open Chrome or Edge and go to the address shown.
 
 - [ ] **Expected:** the Home page opens with a dark navy top section and the headline "Right people. Right shift."
 - [ ] **Expected:** the PowerShell window shows no red error text.
@@ -204,7 +206,7 @@ Check the sections appear in this order from top to bottom:
 - [ ] Services links: GS Care, GS Industrial, Office administration, Recruitment – each opens the right section.
 - [ ] Company links: About Us, Industries, For Job Seekers, Contact Us, Privacy Notice – each opens.
 - [ ] Contact list: phone, email, address, hours.
-- [ ] Bottom line: © 2026, Privacy link, "English · मराठी". मराठी is greyed out (Marathi site not built yet).
+- [ ] Bottom line: © 2026, Privacy link, "English · मराठी". Click **मराठी** → the same page opens in Marathi (section 22).
 - [ ] "Cookie preferences" is **not** shown (analytics is off – see section 11).
 
 ---
@@ -214,8 +216,8 @@ Check the sections appear in this order from top to bottom:
 Wait at least **5 seconds** after the page loads before pressing submit. Faster submissions are treated as spam
 robots and silently ignored (this is on purpose).
 
-Right now no server is connected, so a correct form shows a green message ending with
-**"(Preview mode: no server is connected yet, so nothing was sent.)"** That is the expected result.
+Forms are now saved by the server. A correct form shows a green thank-you message, and the record appears in the
+admin panel (section 21). Use only made-up data.
 
 ### 9A. Manpower enquiry form (Home page bottom and Contact page)
 
@@ -275,8 +277,9 @@ Right now no server is connected, so a correct form shows a green message ending
 **Test 9 – successful submit**
 1. Fill in: Test Hospital · Test Person · 98765 43210 · (email empty) · GDA and ward attendants · 12 ·
    Waluj MIDC · Within 2 weeks · Day · tick the consent box. Wait 5 seconds. Click **Send enquiry**.
-   - [ ] Green box: "Thank you. Your enquiry has been received… (Preview mode: … nothing was sent.)"
+   - [ ] Green box: "Thank you. Your enquiry has been received. Our team will call you within one working day."
    - [ ] All fields are cleared.
+   - [ ] In the admin panel → Manpower enquiries, "Test Hospital" appears with status **New**.
 
 **Test 10 – same form on the other page**
 - [ ] Repeat Test 1 and Test 9 on the other page (Contact if you started on Home, or the other way round).
@@ -308,12 +311,12 @@ Right now no server is connected, so a correct form shows a green message ending
 **Test 6 – successful submit**
 1. Fill in: Test Applicant · 98765 43210 · Housekeeping staff · 1 to 3 years · CIDCO · Immediately ·
    (no resume) · tick consent. Wait 5 seconds. Submit.
-   - [ ] Green thank-you message with the preview-mode note; fields cleared.
+   - [ ] Green thank-you message; fields cleared; the application appears in admin → Job applications.
 
 ### 9C. Spam trap (optional)
 1. Fill the enquiry form correctly very fast and submit within 3 seconds of the page loading
    (easiest: reload, then use the browser's autofill and press Enter immediately).
-   - [ ] Shows the thank-you message **without** the preview-mode note (the robot is told "thanks" but nothing would be sent).
+   - [ ] Shows the thank-you message, but **no** new record appears in the admin panel (robots are told "thanks" and ignored).
 
 ---
 
@@ -337,7 +340,7 @@ Analytics is **off** until a Google Analytics ID is added, so there is no banner
 - [ ] Normal site: no cookie banner appears; footer has no "Cookie preferences".
 
 To test the banner itself (optional, a quick switch-on and switch-off):
-1. Open `src\content\site.json` in Notepad. Change `"ga4Id": ""` to `"ga4Id": "G-TEST000"`. Save.
+1. Admin panel → **Website settings** → Google Analytics ID: type `G-TEST000` → **Save and publish**.
 2. In the browser press `Ctrl + Shift + N` (private window) and open the site address.
    - [ ] A white box at the bottom: "Your privacy choices" with **Decline** and **Allow analytics**, the same size.
 3. Click **Decline**.
@@ -345,7 +348,7 @@ To test the banner itself (optional, a quick switch-on and switch-off):
    - [ ] Footer now shows **Cookie preferences**. Click it → the box opens again.
 4. Click **Allow analytics**.
    - [ ] Box disappears. Reload: it does not come back.
-5. **Put it back:** change `"G-TEST000"` back to `""` and save.
+5. **Put it back:** clear the Google Analytics ID field and save.
    - [ ] After a reload in a new private window, no banner appears.
 
 ---
@@ -357,12 +360,12 @@ Security services must stay hidden until the licence is granted.
 - [ ] Normal site: no security guard anywhere (Home, Services, both form drop-downs).
 
 To check the switch (optional):
-1. In `src\content\site.json` change `"security": false` to `"security": true`. Save.
+1. Admin panel → **Website settings** → tick **Show security services** → **Save and publish**.
 2. Reload the browser.
    - [ ] Home → GS Industrial list now includes "Security guards".
    - [ ] Services → a **Security services** section appears under GS Industrial with "[licence no. and validity]".
    - [ ] Both forms have a Security option.
-3. **Put it back:** change to `"security": false`, save, reload → everything security-related is gone again.
+3. **Put it back:** untick it, save, reload → everything security-related is gone again.
 
 ---
 
@@ -423,7 +426,7 @@ For each of the 7 pages (Home, About, Services, Industries, For Job Seekers, Con
 2. Each page has its own different title (look at the browser tab on each page).
    - [ ] All different.
 3. Open `/sitemap.xml`.
-   - [ ] Lists the 7 public pages (not components.html).
+   - [ ] Lists 14 pages: the 7 English pages and the 7 Marathi pages under /mr/ (not components.html or 404).
 4. Open `/robots.txt`.
    - [ ] Shows Allow, Disallow components.html, and the Sitemap line.
 
@@ -444,11 +447,11 @@ For each of the 7 pages (Home, About, Services, Industries, For Job Seekers, Con
 
 ## 19. Auto-rebuild while editing
 
-1. With `npm run dev` running, open `src\content\site.json` and change `"hours"` to
-   `"Monday to Saturday, 9 am – 6 pm"`. Save.
-   - [ ] PowerShell prints `Built 7 indexed pages into /site`.
+1. With `npm run dev` running, open `src\pages\contact.html` in Notepad, change "Talk to our team" to
+   "Talk to our team today" and save.
+   - [ ] PowerShell prints `Built 14 indexed pages into /site`.
 2. Reload the Contact page.
-   - [ ] Office hours shows the new text.
+   - [ ] The heading shows the new text.
 3. Change it back and save.
 
 **Port check:** open a second PowerShell, `cd C:\GS-Manpower`, run `npm start`.
@@ -464,14 +467,67 @@ For each of the 7 pages (Home, About, Services, Industries, For Job Seekers, Con
 
 ---
 
-## Not testable yet (waiting on other work)
+## 21. Admin panel (leads and website settings)
 
-| Item | Why | When |
+1. Go to the site address + `/admin` (for example http://localhost:4173/admin).
+   - [ ] A login box "Admin login" appears. The page is not linked from the website.
+2. Type username `admin` and a **wrong** password → **Log in**.
+   - [ ] Red "Wrong username or password." After 5 wrong tries: "Too many attempts. Try again in 15 minutes."
+3. Log in with the password from `npm run setup`.
+   - [ ] Top bar shows "Logged in as admin"; four tabs: Manpower enquiries, Job applications, Website settings, Activity log.
+4. **Manpower enquiries:** click "Test Hospital".
+   - [ ] All details shown: contact, mobile (clickable), role, workers, location, timeline, shifts, form language, received, consent given.
+   - [ ] Change Status to **Contacted**, type a note, **Save** → "Saved."; the list shows the new status.
+   - [ ] "Show" filter → **New** hides it; **All** shows it again.
+5. **Job applications:** open the test application you sent with a small PDF.
+   - [ ] **Download resume** downloads the same file you uploaded.
+6. **Delete:** on a test record click **Delete permanently** → confirm.
+   - [ ] "Record deleted."; it disappears from the list.
+7. **Website settings:**
+   - [ ] Fields still holding placeholders have a yellow border.
+   - [ ] Type `call me` in "Phone number for the call button" → **Save and publish** → red "Format example: +919876543210".
+   - [ ] Enter a valid test value in "Office hours (English)" → save → "Saved. The website has been updated." →
+         the Contact page shows the new hours after a reload. Change it back.
+8. **Activity log:**
+   - [ ] Lists logins, views, updates, deletes and setting changes with time and user – but no names or phone numbers.
+9. **Log out**, then press the browser Back button and reload.
+   - [ ] The login box appears again.
+10. Leave the admin panel open without touching it for 31 minutes, then click a tab.
+   - [ ] You are asked to log in again.
+
+## 22. Marathi website
+
+1. On any English page click **मराठी** in the footer.
+   - [ ] The same page opens in Marathi at an address with `/mr/`; the browser tab title is in Marathi.
+2. Check every page: मुख्यपृष्ठ, आमच्याविषयी, आमच्या सेवा, उद्योगक्षेत्रे, नोकरी शोधणाऱ्यांसाठी, संपर्क, गोपनीयता सूचना.
+   - [ ] Menu, buttons, headings, text and footer are in Marathi; GS MANPOWER logo text stays in English.
+   - [ ] Marathi letters are joined normally (no gaps) and the tops/bottoms of letters are not cut off.
+3. Marathi enquiry form (संपर्क page): submit empty.
+   - [ ] Messages in Marathi, e.g. "कृपया लाल रंगातील 9 माहिती तपासा."
+4. Submit a correct form with sample data.
+   - [ ] Marathi thank-you message; in the admin panel the record shows **Form language: Marathi** with English values.
+5. Footer **English** link → back to the English version of the same page.
+6. Visit an address that does not exist, e.g. `/mr/abc` → Marathi "हे पान सापडले नाही" page; `/abc` → English 404.
+
+## 23. Lead notifications (after setting them up – see docs/DEPLOY.md step 4)
+
+1. Submit a test enquiry.
+   - [ ] Within a minute an email / chat message arrives: "New manpower enquiry: 12 × GDA and ward attendants…" with a link to `/admin`.
+   - [ ] The message contains **no** name, phone number or organisation.
+
+## 24. Automated tests (developer)
+
+1. In PowerShell: `npm test`
+   - [ ] "pass 15", "fail 0".
+
+---
+
+## Only testable after going online
+
+| Item | Why | How |
 |---|---|---|
-| Form data actually saved and staff notified | No server connected yet | After the form backend is built |
-| HTTPS padlock, security headers | Only work on real hosting | After going online |
-| Real WhatsApp chat, phone call, email | Placeholder contact details | After real details are added |
-| Google Analytics reports | No GA4 ID yet | After the ID is added and site is online |
-| Real photos | Not yet commissioned | After the photo shoot |
-| Marathi full site (मराठी link) | Only the job page leads in Marathi so far | Later phase |
-| Content editing without code (CMS) | Not set up yet | Later phase |
+| HTTPS padlock and security headers | Only on real hosting with a domain | Open the site; check the padlock; https://securityheaders.com should show A |
+| Real WhatsApp chat, phone call, email | Placeholder contact details until set in the admin panel | Sections 7 and 10 on the live site |
+| Notifications | Need Resend / webhook / WhatsApp accounts | Section 23 |
+| Google Analytics reports | Need a GA4 ID | Section 11, then GA4 Realtime report |
+| Real phone over mobile data | Needs the live address | Repeat sections 1, 2, 9 and 22 on a phone |

@@ -1,0 +1,88 @@
+<form class="form-card" action="{{applicationEndpoint}}" method="post" enctype="multipart/form-data" data-form="job-application" data-endpoint="{{applicationEndpoint}}"
+      data-success="धन्यवाद. तुमचा अर्ज मिळाला आहे. तुमच्यासाठी योग्य नोकरी असल्यास आमची भरती टीम तुम्हाला कॉल करेल.">
+  <h3>नोकरीसाठी अर्ज</h3>
+  <p class="lead">फक्त दोन मिनिटे लागतात. बायोडाटा असल्यास चांगले, पण आवश्यक नाही.</p>
+  <div class="form-grid">
+    <div class="field">
+      <label for="ap-name">पूर्ण नाव <span class="req">(आवश्यक)</span></label>
+      <input class="input" id="ap-name" name="full_name" autocomplete="name" required maxlength="80">
+    </div>
+    <div class="field">
+      <label for="ap-phone">मोबाइल नंबर <span class="req">(आवश्यक)</span></label>
+      <input class="input" id="ap-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required
+             pattern="([+]91 ?)?[6-9][0-9]{4} ?[0-9]{5}" data-error="कृपया 10 अंकी भारतीय मोबाइल नंबर लिहा.">
+    </div>
+    <div class="field">
+      <label for="ap-role">तुम्हाला कोणती नोकरी हवी आहे? <span class="req">(आवश्यक)</span></label>
+      <select class="select" id="ap-role" name="role" required data-error="कृपया नोकरी निवडा.">
+        <option value="">नोकरी निवडा</option>
+        <option value="GNM / ANM nurse">GNM / ANM परिचारिका</option>
+        <option value="GDA / ward attendant">GDA / वॉर्ड अटेंडंट</option>
+        <option value="OT / lab technician">OT / लॅब टेक्निशियन</option>
+        <option value="Housekeeping staff">हाउसकीपिंग कर्मचारी</option>
+        <!-- if:security --><option value="Security guard">सुरक्षा रक्षक</option><!-- endif:security -->
+        <option value="Office assistant or receptionist">ऑफिस असिस्टंट किंवा रिसेप्शनिस्ट</option>
+        <option value="Data entry or back office">डेटा एंट्री किंवा बॅक ऑफिस</option>
+        <option value="Machine operator">मशीन ऑपरेटर</option>
+        <option value="Helper or loader">हेल्पर किंवा लोडर</option>
+        <option value="Store or packing staff">स्टोअर किंवा पॅकिंग कर्मचारी</option>
+        <option value="Supervisor">सुपरवायझर</option>
+        <option value="Other">इतर</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="ap-exp">अनुभव <span class="req">(आवश्यक)</span></label>
+      <select class="select" id="ap-exp" name="experience" required data-error="कृपया अनुभव निवडा.">
+        <option value="">अनुभव निवडा</option>
+        <option value="No experience (fresher)">अनुभव नाही (फ्रेशर)</option>
+        <option value="Less than 1 year">1 वर्षापेक्षा कमी</option>
+        <option value="1 to 3 years">1 ते 3 वर्षे</option>
+        <option value="3 to 5 years">3 ते 5 वर्षे</option>
+        <option value="More than 5 years">5 वर्षांपेक्षा जास्त</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="ap-location">कामासाठी पसंतीचे ठिकाण <span class="req">(आवश्यक)</span></label>
+      <input class="input" id="ap-location" name="location" autocomplete="address-level2" required maxlength="120"
+             placeholder="उदा. सिडको किंवा वाळूज">
+    </div>
+    <div class="field">
+      <label for="ap-availability">तुम्ही कधी रुजू होऊ शकता? <span class="req">(आवश्यक)</span></label>
+      <select class="select" id="ap-availability" name="availability" required data-error="कृपया रुजू होण्याची वेळ निवडा.">
+        <option value="">निवडा</option>
+        <option value="Immediately">लगेच</option>
+        <option value="Within 15 days">15 दिवसांत</option>
+        <option value="Within 1 month">1 महिन्यात</option>
+        <option value="After 1 month">1 महिन्यानंतर</option>
+      </select>
+    </div>
+    <div class="field field--full">
+      <label for="ap-resume">बायोडाटा <span class="req">(ऐच्छिक, PDF किंवा Word, 5 MB पर्यंत)</span></label>
+      <input class="input" id="ap-resume" name="resume" type="file" accept=".pdf,.doc,.docx" data-max-mb="5" aria-describedby="ap-resume-hint">
+      <p class="field-hint" id="ap-resume-hint">बायोडाटा नाही? हे रिकामे ठेवा. मुलाखतीच्या वेळी आम्ही तो बनवायला मदत करू. आधार, पॅन किंवा बँकेची कागदपत्रे इथे अपलोड करू नका.</p>
+    </div>
+    <div class="hp-field" aria-hidden="true">
+      <label for="ap-website">हे रिकामे ठेवा</label>
+      <input id="ap-website" name="company_website" tabindex="-1" autocomplete="off">
+    </div>
+    <input type="hidden" name="started_at">
+    <input type="hidden" name="form_name" value="job-application">
+    <input type="hidden" name="lang" value="mr">
+    <div class="field field--full">
+      <div class="privacy-note">
+        <p><strong>गोपनीयता सूचना.</strong> तुमची माहिती आम्ही फक्त तुम्हाला योग्य नोकरी शोधण्यासाठी आणि त्याबद्दल संपर्क करण्यासाठी वापरतो. अर्ज सुरक्षितपणे (एन्क्रिप्ट करून) साठवला जातो, फक्त आमची भरती टीम तो पाहू शकते आणि तुमच्याशी बोलल्यानंतरच तो कंपनीला दिला जातो. आम्ही तो 12 महिन्यांपर्यंत ठेवतो, तुम्ही आधी हटवायला सांगितल्यास आधी हटवतो. <a href="privacy.html">संपूर्ण गोपनीयता सूचना वाचा</a>.</p>
+      </div>
+    </div>
+    <div class="field field--full">
+      <label class="consent-check" for="ap-consent">
+        <input type="checkbox" id="ap-consent" name="consent" value="yes" required>
+        <span>GS Manpower Services ने माझा अर्ज साठवावा आणि नोकरीसाठी मला फोन, WhatsApp किंवा ईमेलद्वारे संपर्क करावा, याला माझी संमती आहे.</span>
+      </label>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn btn-primary btn-block" type="submit">अर्ज पाठवा <svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+    <small>नोकरी शोधणाऱ्यांकडून आम्ही कधीही कोणतेही शुल्क घेत नाही.</small>
+  </div>
+  <div class="notice form-status" role="status" tabindex="-1" data-form-status></div>
+</form>

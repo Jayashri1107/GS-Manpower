@@ -190,3 +190,10 @@ test('security headers are sent and private paths are not served', async () => {
   assert.notStrictEqual((await fetch(base + '/%2e%2e/.env')).status, 200);
   assert.notStrictEqual((await fetch(base + '/%2e%2e/server/config.js')).status, 200);
 });
+
+test('odd request paths never crash the server', async () => {
+  const raw = (pathname) => new Promise((resolve) => {
+    http.get({ host: '127.0.0.1', port: new URL(base).port, path: pathname }, (res) => { res.resume(); resolve(res.statusCode); });
+  });
+  for (const p of ['//', '//evil.example/x', '/%E0%A4%A', '/admin/../.env']) assert.ok((await raw(p)) < 500, `${p} should not give a server error`);
+});

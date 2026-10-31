@@ -603,3 +603,12 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 .on-light { color: var(--color-navy); }
 /* Letter-spacing breaks Devanagari conjuncts: never track Marathi or Hindi text. */
 [lang="mr"][class], [lang="hi"][class], [class] [lang="mr"], [class] [lang="hi"] { letter-spacing: 0; }
+
+/* ---------- Marathi pages ---------- */
+/* Devanagari needs taller lines (matras above and below) and must never be letter-spaced. */
+:lang(mr), :lang(hi) { letter-spacing: 0; }
+:lang(mr) body, body:lang(mr) { line-height: 1.75; }
+:lang(mr) h1, :lang(mr) h2, :lang(mr) h3, :lang(mr) h4, :lang(mr) .tagline, :lang(mr) .division-name { line-height: 1.35; letter-spacing: 0; }
+:lang(mr) .hero h1 { line-height: 1.2; max-width: 14ch; }
+:lang(mr) .eyebrow, :lang(mr) .subhead, :lang(mr) .card-meta, :lang(mr) .trust-label, :lang(mr) .division-of { letter-spacing: 0; }
+.brand-text:lang(en) .brand-sub { letter-spacing: var(--tracking-label); }
