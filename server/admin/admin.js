@@ -86,6 +86,7 @@
   function show(loggedIn, user) {
     $$('[data-when="in"]').forEach(function (n) { n.hidden = !loggedIn; });
     $$('[data-when="out"]').forEach(function (n) { n.hidden = loggedIn; });
+    document.body.classList.toggle('in-app', !!loggedIn);
     if (loggedIn) {
       $('[data-user]').textContent = '(' + user + ')';
       loadCounts();
@@ -99,6 +100,7 @@
     var view = tab === 'enquiry' || tab === 'application' ? 'leads' : tab;
     $$('[data-view]').forEach(function (v) { v.hidden = v.dataset.view !== view; });
     window.scrollTo(0, 0);
+    $('.main').scrollTop = 0;
     if (view === 'leads') openLeads(tab);
     else if (tab === 'dashboard') loadDashboard();
     else if (tab === 'content') loadContent();

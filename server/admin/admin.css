@@ -1,6 +1,6 @@
 /* GS Manpower admin panel – uses the website's tokens.css */
 * { box-sizing: border-box; }
-html, body { overflow-x: hidden; }
+html, body { overflow-x: clip; }
 body { margin: 0; font: 400 0.9375rem/1.55 var(--font-body); color: var(--color-text); background: #F3F1EB; }
 h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.2; margin: 0; }
 h1 { font-size: 1.625rem; } h2 { font-size: 1.0625rem; }
@@ -191,4 +191,13 @@ textarea { min-height: 84px; resize: vertical; }
   .sidebar { gap: 10px; padding: 12px 16px; }
   .side-nav button, .side-foot a, .side-foot button { padding: 8px 10px; }
   .side-foot small { display: inline; }
+}
+
+/* Desktop: the sidebar never scrolls; only the content area on the right scrolls. */
+@media (min-width: 900px) {
+  body.in-app { height: 100vh; overflow: hidden; }
+  body.in-app .app { height: 100vh; min-height: 0; }
+  body.in-app .sidebar { position: static; height: 100vh; overflow-y: auto; }
+  body.in-app .main { height: 100vh; overflow-y: auto; overscroll-behavior: contain; scroll-padding-top: 16px; }
+  body.in-app .detail { top: 0; }
 }
