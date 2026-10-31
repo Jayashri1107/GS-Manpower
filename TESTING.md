@@ -90,9 +90,8 @@ Check the sections appear in this order from top to bottom:
    - [ ] Marathi line under it: योग्य माणूस, योग्य जागी. (letters joined normally, not spaced apart)
    - [ ] Saffron **Hire Manpower** button → click it → opens Contact page at the enquiry form.
    - [ ] Go back. Outlined **Find a Job** button → click → opens For Job Seekers at the application form.
-   - [ ] Three ticks: Police-verified staff, PF and ESIC compliant, Replacement within 24 hours.
-   - [ ] Desktop only: a photo area on the right with a "Photo to commission" note and a white badge
-         "Every worker police-verified before deployment".
+   - [ ] Desktop: text on the left, a landscape photo of two nurses on the right; the white credentials strip
+         below is visible on the first screen. Phone: photo under the buttons.
 2. **Verified credentials** strip (white)
    - [ ] Four items: Police-verified staff, PF and ESIC compliant, Replacement within 24 hours, Registered business.
    - [ ] Registered business shows "[to be added]" (placeholder until real number is supplied).
@@ -105,17 +104,20 @@ Check the sections appear in this order from top to bottom:
    - [ ] Click "GS Care services" → Services page at the GS Care part. Go back.
    - [ ] Click "GS Industrial services" → Services page at the GS Industrial part. Go back.
    - [ ] Two tiles below: Office administration and Recruitment → each opens the matching part of the Services page.
-4. **Why GS Manpower** (navy) – heading "No worker sent out alone" and four points.
-   - [ ] Present and readable.
+4. **Why GS Manpower** (navy) – heading "No worker sent out alone", then four cards in a row:
+   One point of contact, Clear costs, Local team, Monthly review.
+   - [ ] Desktop: 4 in a row. Phone: 2 by 2. Hovering a card (mouse) highlights it and turns its icon saffron.
 5. **How it works** – four numbered steps 01–04 with a saffron line above each number.
-   - [ ] Desktop: 4 in a row. Tablet: 2 by 2. Phone: one under another.
-6. **Industries** – six tiles, then "How we work with each industry" link → opens Industries page.
-   - [ ] Works.
-7. **Training and quality** – photo area plus a list of four points.
-   - [ ] Present.
-8. **Tell us what you need** – contact details on the left (phone, WhatsApp, email) and the enquiry form.
-   - [ ] Present. (Form is tested in section 9.)
-9. **Footer** (navy) – tested in section 8.
+   - [ ] Step 03 mentions police verification and induction; step 04 mentions supervisor visits and a monthly review.
+   - [ ] Desktop: 4 in a row. Phone: 2 by 2.
+6. **Job-seeker band** (navy box, Marathi first) – "रुग्णालये आणि MIDC मध्ये नोकरी. पगार वेळेवर."
+   - [ ] **Apply now** opens the job application form; **WhatsApp** opens a chat.
+7. **Tell us what you need** – "What happens next" (3 steps) on the left and the enquiry form on the right.
+   - [ ] Phone: the contact lines are hidden here because the Call / WhatsApp bar is always at the bottom.
+   - [ ] (Form is tested in section 9.)
+8. **Footer** (navy) – tested in section 8.
+   - [ ] Not on the home page any more (by decision): FAQ, "Where our staff work", "Training and quality",
+         the three ticks under the hero buttons, the badge on the hero photo.
 
 ---
 

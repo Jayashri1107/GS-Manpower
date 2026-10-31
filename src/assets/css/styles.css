@@ -789,3 +789,40 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 .section:not(.section--navy):not(.section--surface) + .section:not(.section--navy):not(.section--surface),
 .section--surface + .section--surface,
 .section--navy + .section--navy { padding-top: 0; }
+
+/* ---------- Home layout refinements ---------- */
+/* Hero: compact, text and photo balanced side by side */
+@media (min-width: 960px) {
+  .hero { padding-block: clamp(2.5rem, 1rem + 3vw, 4rem); }
+  .hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: var(--space-7); align-items: center; }
+  .hero h1 { font-size: clamp(2.5rem, 1.5rem + 2.6vw, 3.4rem); }
+  .hero .lead { margin-bottom: var(--space-5); }
+  .hero-photo .photo--tall { aspect-ratio: 5 / 4; }
+  .hero-photo .photo img { object-position: 50% 62%; }
+}
+
+/* Division cards: a little smaller */
+.division { padding: var(--space-5); }
+.division .division-head { margin-bottom: var(--space-3); }
+.division .division-head img { width: 44px; height: 44px; }
+.division .division-name { font-size: var(--text-lg); }
+.division > p { font-size: var(--text-sm); margin-bottom: var(--space-3); }
+.division .check-list { gap: var(--space-2); font-size: var(--text-sm); }
+.division .check-list .icon { width: 16px; height: 16px; margin-top: 3px; }
+.division .mt-6 { margin-top: var(--space-4); }
+.division .link-arrow { font-size: var(--text-sm); }
+
+/* Why GS Manpower: heading, then four equal cards in a row */
+.why-grid { margin-top: calc(var(--space-7) * -0.4); }
+.why-card { padding: var(--space-5); gap: 0; }
+.why-card .card-icon { width: 44px; height: 44px; margin-bottom: var(--space-4); }
+.why-card .card-icon .icon { width: 22px; height: 22px; }
+.why-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-2); }
+.why-card p { font-size: var(--text-sm); margin: 0; }
+@media (max-width: 639px) {
+  .why-grid { grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: 0; }
+  .why-card { padding: var(--space-4); }
+  .why-card .card-icon { width: 36px; height: 36px; margin-bottom: var(--space-3); }
+  .why-card h3 { font-size: var(--text-base); }
+  .why-card p { font-size: var(--text-xs); }
+}
