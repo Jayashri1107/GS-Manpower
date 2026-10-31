@@ -34,7 +34,7 @@ if (process.argv.includes('--watch')) {
   console.log('Watching /src for changes. Refresh the browser after saving.');
 }
 
-http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
   const urlPath = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   let file = path.normalize(path.join(ROOT, urlPath));
   if (!file.startsWith(ROOT)) { res.writeHead(403); return res.end(); }
@@ -44,8 +44,20 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-store' });
     res.end(data);
   });
-}).on('error', (e) => {
-  if (e.code === 'EADDRINUSE') console.error(`Port ${PORT} is already in use. Close the other preview, or run with another port: set PORT=4174`);
-  else console.error(e);
-  process.exit(1);
-}).listen(PORT, () => console.log(`Preview: http://localhost:${PORT}`));
+});
+
+// If the port is busy (for example another preview is still open), try the next ones.
+let port = Number(PORT);
+const lastPort = port + 10;
+server.on('error', (e) => {
+  if (e.code === 'EADDRINUSE' && port < lastPort) {
+    console.log(`Port ${port} is busy, trying ${port + 1}...`);
+    port += 1;
+    server.listen(port);
+  } else {
+    console.error(e.code === 'EADDRINUSE' ? `Ports ${PORT} to ${lastPort} are all busy. Close other previews and try again.` : e);
+    process.exit(1);
+  }
+});
+server.on('listening', () => console.log(`\nPreview ready: http://localhost:${port}\nPress Ctrl+C to stop.\n`));
+server.listen(port);
