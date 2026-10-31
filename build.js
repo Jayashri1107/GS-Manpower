@@ -39,6 +39,8 @@ function build() {
   const config = loadConfig();
   // Build into a temporary folder and swap it in at the end, so a running server never serves a half-built site.
   const OUT = `${SITE}.building-${process.pid}`;
+  cleanLeftovers();
+  fs.rmSync(OUT, { recursive: true, force: true });
 
   function includePartials(html, lang, depth = 0) {
     if (depth > 5) throw new Error('Partials nested too deeply');
@@ -143,11 +145,38 @@ function build() {
   fs.writeFileSync(path.join(OUT, 'robots.txt'),
     `User-agent: *\nAllow: /\nDisallow: /components.html\nDisallow: /admin\nDisallow: /api/\nSitemap: ${config.baseUrl}/sitemap.xml\n`);
 
-  const old = `${SITE}.old-${process.pid}`;
-  if (fs.existsSync(SITE)) fs.renameSync(SITE, old);
-  fs.renameSync(OUT, SITE);
-  fs.rmSync(old, { recursive: true, force: true });
+  swapIn(OUT);
   return sitemap.length;
+}
+
+// Windows can briefly lock folders a running server is reading. Retry the rename a few times, then fall back to
+// copying the finished build over the old one, so a build never fails or leaves the site missing.
+function swapIn(OUT) {
+  const old = `${SITE}.old-${process.pid}`;
+  const pause = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      if (fs.existsSync(SITE)) fs.renameSync(SITE, old);
+      fs.renameSync(OUT, SITE);
+      fs.rmSync(old, { recursive: true, force: true });
+      return;
+    } catch {
+      if (!fs.existsSync(SITE) && fs.existsSync(old)) fs.renameSync(old, SITE); // put the previous site back
+      pause(100 * (attempt + 1));
+    }
+  }
+  fs.mkdirSync(SITE, { recursive: true });
+  copyDir(OUT, SITE);
+  fs.rmSync(OUT, { recursive: true, force: true });
+}
+
+// Remove temporary folders left behind by an interrupted build.
+function cleanLeftovers() {
+  for (const name of fs.readdirSync(__dirname)) {
+    if (/^site\.(building|old)-\d+$/.test(name) && !name.endsWith(`-${process.pid}`)) {
+      try { fs.rmSync(path.join(__dirname, name), { recursive: true, force: true }); } catch { /* still in use; next build */ }
+    }
+  }
 }
 
 module.exports = { build, loadConfig };
