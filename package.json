@@ -1,11 +1,16 @@
 {
   "name": "gs-manpower-website",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "GS Manpower Services – corporate website (static, no dependencies)",
+  "description": "GS Manpower – website, form backend and admin panel (Node.js, no dependencies)",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "dev": "node serve.js --watch",
-    "start": "node serve.js",
-    "build": "node build.js"
+    "dev": "node server/index.js --watch",
+    "start": "node server/index.js",
+    "build": "node build.js",
+    "setup": "node scripts/setup.js",
+    "test": "node --test test/*.test.js"
   }
 }

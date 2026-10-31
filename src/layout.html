@@ -1,13 +1,12 @@
 <!doctype html>
-<html lang="en-IN">
+<html lang="{{htmlLang}}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{title}}</title>
   <meta name="description" content="{{description}}">
   <link rel="canonical" href="{{canonical}}">
-  <link rel="alternate" hreflang="en-IN" href="{{canonical}}">
-  <!-- Marathi-ready: when /mr/ pages exist, add <link rel="alternate" hreflang="mr-IN" href="{{baseUrl}}/mr/..."> -->
+  {{hreflang}}
   {{robots}}
   <meta name="theme-color" content="#14213D">
   <meta property="og:type" content="website">
@@ -15,7 +14,8 @@
   <meta property="og:title" content="{{title}}">
   <meta property="og:description" content="{{description}}">
   <meta property="og:url" content="{{canonical}}">
-  <meta property="og:locale" content="en_IN">
+  <meta property="og:locale" content="{{ogLocale}}">
+  <meta property="og:image" content="{{baseUrl}}/assets/img/og-image.png">
   <link rel="icon" href="assets/img/gs-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

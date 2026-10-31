@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin | GS Manpower</title>
+  <link rel="icon" href="/assets/img/gs-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/admin/admin.css">
+  <script src="/admin/admin.js" defer></script>
+</head>
+<body>
+  <header class="bar">
+    <span class="brand"><img src="/assets/img/gs-mark-reversed.svg" width="36" height="36" alt=""><span><strong>GS MANPOWER</strong><small>Admin</small></span></span>
+    <div class="bar-right" data-when="in" hidden>
+      <span data-user></span>
+      <a href="/" target="_blank" rel="noopener">View website</a>
+      <button type="button" class="btn btn-ghost" data-logout>Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="login card" data-when="out" hidden aria-labelledby="login-title">
+      <h1 id="login-title">Admin login</h1>
+      <p class="muted">For GS Manpower staff only. You are logged out after 30 minutes without activity.</p>
+      <form data-login novalidate>
+        <label for="u">Username</label>
+        <input id="u" name="username" autocomplete="username" required>
+        <label for="p">Password</label>
+        <input id="p" name="password" type="password" autocomplete="current-password" required>
+        <p class="msg" role="alert" data-login-msg></p>
+        <button class="btn btn-primary" type="submit">Log in</button>
+      </form>
+    </section>
+
+    <section data-when="in" hidden>
+      <nav class="tabs" role="tablist" aria-label="Admin sections">
+        <button role="tab" type="button" data-tab="enquiry" aria-selected="true">Manpower enquiries <span class="count" data-count="enquiry"></span></button>
+        <button role="tab" type="button" data-tab="application" aria-selected="false">Job applications <span class="count" data-count="application"></span></button>
+        <button role="tab" type="button" data-tab="content" aria-selected="false">Website settings</button>
+        <button role="tab" type="button" data-tab="audit" aria-selected="false">Activity log</button>
+      </nav>
+
+      <div class="panel" data-panel="leads">
+        <div class="toolbar">
+          <label>Show <select data-filter>
+            <option value="">All</option><option value="new">New</option><option value="contacted">Contacted</option>
+            <option value="in-progress">In progress</option><option value="closed">Closed</option>
+          </select></label>
+          <button type="button" class="btn btn-ghost" data-refresh>Refresh</button>
+        </div>
+        <div class="split">
+          <div class="list card" data-list aria-live="polite"></div>
+          <div class="detail card" data-detail><p class="muted">Select a record to see the details.</p></div>
+        </div>
+      </div>
+
+      <div class="panel card" data-panel="content" hidden>
+        <h2>Website settings</h2>
+        <p class="muted">Changes go live on the website as soon as you save. Fields marked with a placeholder such as [to be added] still need real values.</p>
+        <form data-content novalidate></form>
+      </div>
+
+      <div class="panel card" data-panel="audit" hidden>
+        <h2>Activity log</h2>
+        <p class="muted">Who logged in, viewed, changed or deleted records. Personal details are never written to this log.</p>
+        <table class="table"><thead><tr><th>When</th><th>User</th><th>Action</th><th>Record</th></tr></thead><tbody data-audit></tbody></table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

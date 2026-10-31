@@ -1,17 +1,28 @@
 // Builds the website from /src into /site. No dependencies: `node build.js`
 //
-// - src/layout.html        page shell (head, header, footer)
-// - src/pages/*.html       one file per page; first line is <!--meta {json} -->
-// - src/partials/*.html    reusable pieces, included with {{> name}}
-// - src/content/site.json  contact details, endpoints, feature flags (edit this, not the pages)
+// - src/layout.html          page shell (head, header, footer)
+// - src/pages/*.html         English pages; first line is <!--meta {json} -->
+// - src/pages/mr/*.html      Marathi pages, built into /site/mr/
+// - src/partials/*.html      reusable pieces, included with {{> name}}; name.mr.html is used on Marathi pages
+// - src/content/site.json    contact details, registrations, endpoints, feature flags
+// - CONTENT_FILE (env)       optional JSON written by the admin panel; overrides site.json values
 // - <!-- if:flag --> ... <!-- endif:flag -->  is kept only when features[flag] is true
 const fs = require('fs');
 const path = require('path');
 
 const SRC = path.join(__dirname, 'src');
 const OUT = path.join(__dirname, 'site');
-const config = JSON.parse(fs.readFileSync(path.join(SRC, 'content', 'site.json'), 'utf8'));
 const read = (...p) => fs.readFileSync(path.join(SRC, ...p), 'utf8');
+
+function loadConfig() {
+  const base = JSON.parse(read('content', 'site.json'));
+  const file = process.env.CONTENT_FILE;
+  if (file && fs.existsSync(file)) {
+    const override = JSON.parse(fs.readFileSync(file, 'utf8'));
+    return { ...base, ...override, features: { ...base.features, ...(override.features || {}) } };
+  }
+  return base;
+}
 
 function copyDir(from, to) {
   fs.mkdirSync(to, { recursive: true });
@@ -22,88 +33,118 @@ function copyDir(from, to) {
   }
 }
 
-function includePartials(html, depth = 0) {
-  if (depth > 5) throw new Error('Partials nested too deeply');
-  const out = html.replace(/{{>\s*([\w-]+)\s*}}/g, (_, name) => read('partials', `${name}.html`));
-  return out === html ? out : includePartials(out, depth + 1);
-}
+const escapeHtml = (v) => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-function applyConditionals(html) {
-  return html.replace(/<!-- if:(\w+) -->([\s\S]*?)<!-- endif:\1 -->/g, (_, flag, body) =>
-    config.features && config.features[flag] ? body : '');
-}
+function build() {
+  const config = loadConfig();
 
-function fillVars(html, vars) {
-  return html.replace(/{{\s*([\w]+)\s*}}/g, (m, key) => (key in vars ? String(vars[key]) : m));
-}
+  function includePartials(html, lang, depth = 0) {
+    if (depth > 5) throw new Error('Partials nested too deeply');
+    const out = html.replace(/{{>\s*([\w-]+)\s*}}/g, (_, name) => {
+      const localised = path.join(SRC, 'partials', `${name}.${lang}.html`);
+      return lang !== 'en' && fs.existsSync(localised) ? fs.readFileSync(localised, 'utf8') : read('partials', `${name}.html`);
+    });
+    return out === html ? out : includePartials(out, lang, depth + 1);
+  }
 
-fs.rmSync(OUT, { recursive: true, force: true });
-copyDir(path.join(SRC, 'assets'), path.join(OUT, 'assets'));
-for (const f of fs.readdirSync(path.join(SRC, 'static'))) {
-  fs.copyFileSync(path.join(SRC, 'static', f), path.join(OUT, f));
-}
+  const applyConditionals = (html) => html.replace(/<!-- if:(\w+) -->([\s\S]*?)<!-- endif:\1 -->/g,
+    (_, flag, body) => (config.features && config.features[flag] ? body : ''));
 
-// Public config for the browser (no secrets belong in site.json).
-const publicConfig = {
-  whatsapp: config.whatsapp,
-  ga4Id: config.ga4Id,
-  phoneDisplay: config.phoneDisplay,
-};
-fs.writeFileSync(path.join(OUT, 'assets', 'js', 'config.js'),
-  `window.GSMS_CONFIG = ${JSON.stringify(publicConfig)};\n`);
+  // Values from site.json / the admin panel are escaped; page meta and generated values are trusted.
+  function fillVars(html, safe, raw) {
+    return html.replace(/{{\s*([\w]+)\s*}}/g, (m, key) => {
+      if (key in raw) return String(raw[key]);
+      if (key in safe) return escapeHtml(safe[key]);
+      return m;
+    });
+  }
 
-const layout = read('layout.html');
-const sitemap = [];
+  fs.rmSync(OUT, { recursive: true, force: true });
+  copyDir(path.join(SRC, 'assets'), path.join(OUT, 'assets'));
 
-for (const file of fs.readdirSync(path.join(SRC, 'pages')).filter(f => f.endsWith('.html'))) {
-  const raw = read('pages', file);
-  const match = raw.match(/^<!--meta\s*([\s\S]*?)-->/);
-  if (!match) throw new Error(`${file}: missing <!--meta {...} --> header`);
-  const meta = JSON.parse(match[1]);
-  const content = raw.slice(match[0].length);
-  const outName = file;
-  const canonical = `${config.baseUrl}/${outName === 'index.html' ? '' : outName}`;
+  fs.writeFileSync(path.join(OUT, 'assets', 'js', 'config.js'),
+    `window.GSMS_CONFIG = ${JSON.stringify({ whatsapp: config.whatsapp, ga4Id: config.ga4Id, phoneDisplay: config.phoneDisplay })};\n`);
 
-  const jsonld = {
-    '@context': 'https://schema.org',
-    '@type': 'EmploymentAgency',
-    name: config.siteName,
-    url: config.baseUrl,
-    telephone: config.phoneE164,
-    email: config.email,
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Chhatrapati Sambhajinagar',
-      addressRegion: 'Maharashtra',
-      addressCountry: 'IN',
-    },
-    areaServed: 'Chhatrapati Sambhajinagar, Maharashtra',
+  const layout = read('layout.html');
+  const languages = [
+    { lang: 'en', dir: '', htmlLang: 'en-IN', ogLocale: 'en_IN' },
+    { lang: 'mr', dir: 'mr', htmlLang: 'mr-IN', ogLocale: 'mr_IN' },
+  ];
+  const pagesOf = (dir) => {
+    const p = path.join(SRC, 'pages', dir);
+    return fs.existsSync(p) ? fs.readdirSync(p).filter((f) => f.endsWith('.html')) : [];
   };
+  const available = { en: pagesOf(''), mr: pagesOf('mr') };
+  const urlFor = (lang, file) => `${config.baseUrl}/${lang === 'en' ? '' : 'mr/'}${file === 'index.html' ? '' : file}`;
+  const sitemap = [];
 
-  let html = layout.replace('{{content}}', content);
-  html = includePartials(html);
-  html = applyConditionals(html);
-  html = fillVars(html, {
-    ...config,
-    ...meta,
-    canonical,
-    jsonld: JSON.stringify(jsonld),
-    robots: meta.noindex ? '<meta name="robots" content="noindex">' : '',
-  });
-  // Mark the current page in the main navigation.
-  html = html.replace(new RegExp(`data-page="${meta.slug}"`, 'g'), `data-page="${meta.slug}" aria-current="page"`);
+  for (const L of languages) {
+    const other = L.lang === 'en' ? 'mr' : 'en';
+    fs.mkdirSync(path.join(OUT, L.dir), { recursive: true });
 
-  const leftover = html.match(/{{[^}]*}}/);
-  if (leftover) throw new Error(`${file}: unfilled placeholder ${leftover[0]}`);
+    for (const file of available[L.lang]) {
+      const raw = read('pages', L.dir, file);
+      const match = raw.match(/^<!--meta\s*([\s\S]*?)-->/);
+      if (!match) throw new Error(`${L.dir}/${file}: missing <!--meta {...} --> header`);
+      const meta = JSON.parse(match[1]);
+      const content = raw.slice(match[0].length);
+      const canonical = urlFor(L.lang, file);
+      const hasTwin = available[other].includes(file);
+      const altFile = hasTwin ? file : 'index.html';
+      const altHref = L.lang === 'en' ? `mr/${altFile}` : `../${altFile}`;
+      const hreflang = hasTwin && !meta.noindex
+        ? `<link rel="alternate" hreflang="en-IN" href="${urlFor('en', file)}">\n  <link rel="alternate" hreflang="mr-IN" href="${urlFor('mr', file)}">\n  <link rel="alternate" hreflang="x-default" href="${urlFor('en', file)}">`
+        : `<link rel="alternate" hreflang="${L.htmlLang}" href="${canonical}">`;
 
-  fs.writeFileSync(path.join(OUT, outName), html);
-  if (!meta.noindex) sitemap.push(canonical);
+      const jsonld = {
+        '@context': 'https://schema.org',
+        '@type': 'EmploymentAgency',
+        name: config.siteName,
+        slogan: 'Right people. Right shift.',
+        url: config.baseUrl,
+        logo: `${config.baseUrl}/assets/img/gs-mark.svg`,
+        telephone: config.phoneE164,
+        email: config.email,
+        address: { '@type': 'PostalAddress', streetAddress: config.addressLine, addressLocality: 'Chhatrapati Sambhajinagar', addressRegion: 'Maharashtra', addressCountry: 'IN' },
+        areaServed: 'Chhatrapati Sambhajinagar, Maharashtra',
+      };
+
+      let html = layout.replace('{{content}}', content);
+      html = includePartials(html, L.lang);
+      html = applyConditionals(html);
+      const { features, ...settings } = config;
+      html = fillVars(html, settings, {
+        ...meta,
+        canonical,
+        htmlLang: L.htmlLang,
+        ogLocale: L.ogLocale,
+        hreflang,
+        altHref,
+        jsonld: JSON.stringify(jsonld).replace(/</g, '\\u003c'),
+        robots: meta.noindex ? '<meta name="robots" content="noindex">' : '',
+      });
+      html = html.replace(new RegExp(`data-page="${meta.slug}"`, 'g'), `data-page="${meta.slug}" aria-current="page"`);
+      if (L.dir) html = html.replace(/(src|href)="assets\//g, '$1="../assets/');
+
+      const leftover = html.match(/{{[^}]*}}/);
+      if (leftover) throw new Error(`${L.dir}/${file}: unfilled placeholder ${leftover[0]}`);
+
+      fs.writeFileSync(path.join(OUT, L.dir, file), html);
+      if (!meta.noindex) sitemap.push(canonical);
+    }
+  }
+
+  fs.writeFileSync(path.join(OUT, 'sitemap.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    sitemap.map((u) => `  <url><loc>${u}</loc></url>`).join('\n') + '\n</urlset>\n');
+  fs.writeFileSync(path.join(OUT, 'robots.txt'),
+    `User-agent: *\nAllow: /\nDisallow: /components.html\nDisallow: /admin\nDisallow: /api/\nSitemap: ${config.baseUrl}/sitemap.xml\n`);
+
+  return sitemap.length;
 }
 
-fs.writeFileSync(path.join(OUT, 'sitemap.xml'),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  sitemap.map(u => `  <url><loc>${u}</loc></url>`).join('\n') + '\n</urlset>\n');
-fs.writeFileSync(path.join(OUT, 'robots.txt'),
-  `User-agent: *\nAllow: /\nDisallow: /components.html\nSitemap: ${config.baseUrl}/sitemap.xml\n`);
+module.exports = { build, loadConfig };
 
-console.log(`Built ${sitemap.length} indexed pages into /site`);
+if (require.main === module) {
+  console.log(`Built ${build()} indexed pages into /site`);
+}

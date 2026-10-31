@@ -1,0 +1,74 @@
+/* GS Manpower admin panel – uses the website's tokens.css */
+* { box-sizing: border-box; }
+body { margin: 0; font: 400 0.9375rem/1.6 var(--font-body); color: var(--color-text); background: var(--color-paper); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.2; margin: 0 0 var(--space-3); }
+h1 { font-size: 1.75rem; } h2 { font-size: 1.375rem; } h3 { font-size: 1.0625rem; }
+[hidden] { display: none !important; }
+.muted { color: var(--color-text-muted); }
+:focus-visible { outline: 3px solid var(--color-navy); outline-offset: 2px; }
+
+.bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-3) var(--space-5); background: var(--color-navy); color: #fff; }
+.brand { display: flex; align-items: center; gap: var(--space-3); }
+.brand strong { display: block; font-family: var(--font-display); font-weight: 900; letter-spacing: .02em; }
+.brand small { display: block; font-size: .75rem; color: var(--color-steel-light); text-transform: uppercase; letter-spacing: var(--tracking-label); font-weight: 700; }
+.bar-right { display: flex; align-items: center; gap: var(--space-4); font-size: var(--text-sm); }
+.bar a { color: #fff; }
+
+main { max-width: 1280px; margin: 0 auto; padding: var(--space-5); }
+.card { background: #fff; border: 1px solid var(--color-line); border-radius: var(--radius-lg); padding: var(--space-5); }
+.login { max-width: 420px; margin: var(--space-8) auto; }
+.login form { display: grid; gap: var(--space-2); }
+label { font-weight: 600; font-size: var(--text-sm); }
+input, select, textarea { font: inherit; padding: var(--space-2) var(--space-3); min-height: 44px; border: 1.5px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-paper); width: 100%; }
+input:focus, select:focus, textarea:focus { border-color: var(--color-navy); background: #fff; outline: none; }
+textarea { min-height: 90px; }
+.msg { min-height: 1.4em; margin: 0; color: var(--color-error); font-size: var(--text-sm); }
+.msg.ok { color: var(--color-success); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 var(--space-5); border-radius: var(--radius-md); border: 1.5px solid transparent; font: 600 var(--text-sm) var(--font-body); cursor: pointer; text-decoration: none; }
+.btn-primary { background: var(--color-saffron); color: var(--color-navy); }
+.btn-primary:hover { background: var(--color-saffron-strong); }
+.btn-navy { background: var(--color-navy); color: #fff; }
+.btn-ghost { background: transparent; border-color: var(--color-line-strong); color: inherit; }
+.bar .btn-ghost { border-color: rgba(255,255,255,.4); color: #fff; min-height: 36px; }
+.btn-danger { background: var(--color-error-tint); color: var(--color-error); border-color: var(--color-error); }
+
+.tabs { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); }
+.tabs button { font: 600 var(--text-sm) var(--font-body); padding: var(--space-2) var(--space-4); border-radius: 999px; border: 1.5px solid var(--color-line-strong); background: #fff; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--color-navy); border-color: var(--color-navy); color: #fff; }
+.count { display: inline-block; min-width: 1.5em; padding: 0 .4em; border-radius: 999px; background: var(--color-saffron); color: var(--color-navy); font-size: .75rem; }
+.count:empty { display: none; }
+
+.toolbar { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); }
+.toolbar select { width: auto; }
+.split { display: grid; gap: var(--space-4); }
+@media (min-width: 900px) { .split { grid-template-columns: minmax(320px, 1fr) 1.3fr; align-items: start; } }
+.list { padding: 0; overflow: hidden; }
+.row { display: block; width: 100%; text-align: left; padding: var(--space-3) var(--space-4); border: 0; border-bottom: 1px solid var(--color-line); background: #fff; cursor: pointer; font: inherit; }
+.row:hover, .row[aria-current="true"] { background: var(--color-navy-tint); }
+.row strong { display: block; }
+.row small { color: var(--color-text-muted); }
+.empty { padding: var(--space-5); color: var(--color-text-muted); }
+
+.status { display: inline-flex; align-items: center; gap: 4px; font-size: .75rem; font-weight: 700; padding: 0 .6em; border-radius: 999px; margin-left: var(--space-2); }
+.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.status-new { background: var(--color-warning-tint); color: var(--color-warning); }
+.status-contacted, .status-in-progress { background: var(--color-navy-tint); color: var(--color-navy); }
+.status-closed { background: var(--color-success-tint); color: var(--color-success); }
+
+dl.fields { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-2) var(--space-4); margin: var(--space-4) 0; }
+dl.fields dt { font-weight: 600; color: var(--color-text-muted); font-size: var(--text-sm); }
+dl.fields dd { margin: 0; overflow-wrap: anywhere; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); align-items: center; }
+.edit-grid { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
+
+.settings-group { border: 0; padding: 0; margin: var(--space-5) 0 0; display: grid; gap: var(--space-3); }
+.settings-group legend { font-family: var(--font-display); font-weight: 800; font-size: 1.0625rem; margin-bottom: var(--space-2); }
+.setting { display: grid; gap: var(--space-1); }
+@media (min-width: 760px) { .setting { grid-template-columns: 320px 1fr; align-items: center; gap: var(--space-4); } }
+.setting .err { grid-column: 2; color: var(--color-error); font-size: var(--text-sm); margin: 0; }
+.setting input[type="checkbox"] { width: 22px; min-height: 22px; accent-color: var(--color-navy); }
+.placeholder-value { border-color: var(--color-saffron); }
+
+.table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.table th, .table td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--color-line); }

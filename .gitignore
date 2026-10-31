@@ -1,4 +1,6 @@
 node_modules/
 site/
+data/
 .env
 *.log
+*.tmp
