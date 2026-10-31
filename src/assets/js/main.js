@@ -25,7 +25,7 @@
       if (e.key === 'Escape' && nav.classList.contains('is-open')) { setOpen(false); toggle.focus(); }
     });
     nav.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
-    window.matchMedia('(min-width: 1024px)').addEventListener('change', function (mq) { if (mq.matches) setOpen(false); });
+    window.matchMedia('(min-width: 1100px)').addEventListener('change', function (mq) { if (mq.matches) setOpen(false); });
 
     var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 8); };
     window.addEventListener('scroll', onScroll, { passive: true });

@@ -172,7 +172,7 @@ body.nav-open { overflow: hidden; }
 body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--color-paper); }
 body.nav-open .wa-float { display: none; }
 
-@media (min-width: 1024px) {
+@media (min-width: 1100px) {
   .nav-toggle { display: none; }
   .site-nav {
     position: static; inset: auto; padding: 0; background: none; overflow: visible;
@@ -825,4 +825,56 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
   .why-card .card-icon { width: 36px; height: 36px; margin-bottom: var(--space-3); }
   .why-card h3 { font-size: var(--text-base); }
   .why-card p { font-size: var(--text-xs); }
+}
+
+/* ---------- Responsive: tablets (640–1099 px) ---------- */
+/* Hero: text and photo side by side from 768 px instead of a full-width stacked photo */
+@media (min-width: 768px) and (max-width: 959px) {
+  .hero { padding-block: var(--space-7); }
+  .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: var(--space-6); align-items: center; }
+  .hero h1 { font-size: 2.6rem; }
+  .hero .lead { font-size: var(--text-base); margin-bottom: var(--space-5); }
+  .hero .btn-row .btn { flex: 0 0 auto; }
+  .hero-photo .photo--tall { aspect-ratio: 4 / 5; }
+}
+/* Small tablets / large phones in landscape (640–767): stacked, but the photo is a short banner */
+@media (min-width: 640px) and (max-width: 767px) {
+  .hero-photo .photo--tall { aspect-ratio: 16 / 9; }
+  .hero-photo .photo img { object-position: 50% 60%; }
+}
+/* Division cards: one per row until there is room for two, with their lists in three columns */
+@media (max-width: 959px) {
+  .grid-2:has(> .division) { grid-template-columns: 1fr; }
+}
+@media (min-width: 640px) and (max-width: 959px) {
+  .division .check-list--cols { grid-template-columns: repeat(3, 1fr); }
+}
+/* Enquiry section on tablets: "What happens next" and contact details as rows of three above the form */
+@media (min-width: 640px) and (max-width: 959px) {
+  .next-steps ol { grid-template-columns: repeat(3, 1fr); }
+  .next-steps li { grid-template-columns: 1fr; row-gap: var(--space-2); }
+  .next-steps li::before { grid-row: auto; }
+  #enquiry .contact-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+  #enquiry .contact-item a, #enquiry .contact-item span { font-size: var(--text-sm); overflow-wrap: anywhere; }
+  .form-card { max-width: 720px; }
+}
+/* Touch tablets get the Call / WhatsApp bar too, instead of the floating button */
+@media (min-width: 640px) and (max-width: 959px) {
+  .mobile-cta {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; display: grid; grid-template-columns: 1fr 1fr;
+    background: var(--color-navy); border-top: 1px solid rgba(255, 255, 255, .12); padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mobile-cta a { display: flex; align-items: center; justify-content: center; gap: var(--space-2); min-height: 56px; color: #fff; font-weight: 700; text-decoration: none; }
+  .mobile-cta a + a { border-left: 1px solid rgba(255, 255, 255, .15); }
+  .mobile-cta .icon { width: 20px; height: 20px; color: var(--color-saffron); }
+  .wa-float { display: none; }
+  body { padding-bottom: 56px; }
+  body.nav-open .mobile-cta { display: none; }
+  .consent { bottom: calc(56px + var(--space-3)); }
+}
+/* Open menu on tablets: a centred panel rather than stretched full-width links */
+@media (min-width: 640px) and (max-width: 1099px) {
+  .site-nav { padding-inline: max(var(--gutter), calc((100vw - 560px) / 2)); }
+  .nav-cta { flex-direction: row; }
+  .nav-cta .btn { flex: 1; }
 }
