@@ -654,23 +654,6 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 /* Training photo: zoom into the top-left to leave out the blurred face at the bottom right */
 .photo--crop-tl img { transform: scale(1.3); transform-origin: 0 0; }
 
-/* FAQ */
-.faq-wrap { max-width: 880px; }
-.faq { border-top: 1px solid var(--color-line); }
-.faq details { border-bottom: 1px solid var(--color-line); }
-.faq summary {
-  display: flex; justify-content: space-between; align-items: center; gap: var(--space-4);
-  padding: var(--space-5) 0; cursor: pointer; list-style: none;
-  font-family: var(--font-display); font-weight: 800; font-size: var(--text-lg); color: var(--color-navy);
-}
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::after {
-  content: "+"; flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
-  background: var(--color-navy-tint); font-family: var(--font-body); font-weight: 600; font-size: 1.25rem; line-height: 1;
-}
-.faq details[open] summary::after { content: "–"; background: var(--color-navy); color: #fff; }
-.faq details p { margin: 0 0 var(--space-5); color: var(--color-text-muted); max-width: 70ch; }
-
 /* What happens next (beside the enquiry form) */
 .next-steps { margin: var(--space-6) 0; padding: var(--space-5); background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius-lg); }
 .next-steps h3 { font-size: var(--text-lg); margin-bottom: var(--space-4); }
@@ -731,7 +714,6 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
   .next-steps { margin: var(--space-5) 0 0; }
   .next-steps ~ .contact-list { display: none; }
   .footer-bottom { padding-bottom: var(--space-5); }
-  .faq summary { padding: var(--space-4) 0; font-size: var(--text-base); }
   .site-footer { padding-top: var(--space-7); }
   .footer-grid { gap: var(--space-6); padding-bottom: var(--space-6); }
 }
@@ -758,4 +740,45 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
   .next-steps h3 { margin-bottom: var(--space-3); }
   .next-steps ol { gap: var(--space-3); }
   .next-steps span { font-size: var(--text-xs); }
+}
+
+/* ---------- Hover effects (cards, tiles, features) ---------- */
+/* Only on devices with a real pointer, so phones don't get "stuck" hover states. */
+.card, .tile, .trust-item, .feature, .step, .contact-item, .next-steps li {
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease), background-color .25s var(--ease);
+}
+.card-icon { transition: background-color .25s var(--ease), color .25s var(--ease), transform .25s var(--ease); }
+@media (hover: hover) and (pointer: fine) {
+  /* White cards: lift, shadow, navy border, icon tile turns navy */
+  .card:hover, .tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 36px -18px rgba(20, 33, 61, .35);
+    border-color: var(--color-navy);
+  }
+  .card:hover .card-icon, .tile:hover .card-icon { background: var(--color-navy); color: #fff; transform: scale(1.05); }
+  .division--care:hover { border-color: var(--color-teal); border-top-color: var(--color-teal); }
+  .division--care:hover .card-icon { background: var(--color-teal); }
+  .division:hover { border-top-width: 6px; }
+  /* Cards on navy sections */
+  .section--navy .card:hover { border-color: rgba(201, 205, 214, .45); background: var(--color-navy-80); }
+  .section--navy .card:hover .card-icon { background: var(--color-saffron); color: var(--color-navy); }
+  /* Feature points on navy ("Why GS Manpower") */
+  .section--navy .feature { padding: var(--space-3); margin: calc(var(--space-3) * -1); border-radius: var(--radius-md); }
+  .section--navy .feature:hover { background: rgba(255, 255, 255, .05); }
+  .section--navy .feature:hover .card-icon { background: var(--color-saffron); color: var(--color-navy); }
+  .feature:hover .card-icon { transform: scale(1.08); }
+  /* Steps: the number line grows */
+  .step::before { transition: width .3s var(--ease); }
+  .step:hover::before { width: 100%; }
+  /* Trust strip and contact items */
+  .trust-item:hover { transform: translateY(-2px); }
+  .trust-item .icon { transition: transform .25s var(--ease); }
+  .trust-item:hover .icon { transform: scale(1.15); }
+  .contact-item:hover .card-icon { background: var(--color-navy); color: #fff; }
+  /* Photos: gentle zoom */
+  .photo img { transition: transform .6s var(--ease); }
+  .photo:hover img { transform: scale(1.03); }
+  .photo--crop-tl:hover img { transform: scale(1.34); }
+  /* Swatches and logo tiles in the component library stay still */
+  .swatch:hover, .logo-stage:hover { transform: none; }
 }
