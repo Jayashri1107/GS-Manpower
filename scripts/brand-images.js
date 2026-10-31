@@ -9,16 +9,19 @@ const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 const NAVY = hex('#14213D'), SAFFRON = hex('#F2A007'), WHITE = hex('#FFFFFF'), PAPER = hex('#F6F4EF'), STEEL_LIGHT = hex('#C9CDD6');
 const SS = 3; // supersampling
 
-function canvas(w, h, bg) {
+// radius > 0 gives a transparent PNG whose background is a rounded square (used for favicons).
+function canvas(w, h, bg, radius = 0) {
   const layers = [];
   return {
     w, h,
     layer(color) { const m = { color, mask: new Uint8Array(w * SS * h * SS) }; layers.push(m); return m; },
     png(file) {
       const W = w * SS;
-      const rows = Buffer.alloc((w * 3 + 1) * h);
+      const ch = radius ? 4 : 3;
+      const inBg = (px, py) => { const dx = Math.max(radius - px, 0, px - (w - radius)), dy = Math.max(radius - py, 0, py - (h - radius)); return dx * dx + dy * dy <= radius * radius; };
+      const rows = Buffer.alloc((w * ch + 1) * h);
       for (let y = 0; y < h; y++) {
-        rows[y * (w * 3 + 1)] = 0;
+        rows[y * (w * ch + 1)] = 0;
         for (let x = 0; x < w; x++) {
           let px = bg.slice();
           for (const L of layers) {
@@ -26,13 +29,20 @@ function canvas(w, h, bg) {
             for (let sy = 0; sy < SS; sy++) for (let sx = 0; sx < SS; sx++) cov += L.mask[(y * SS + sy) * W + x * SS + sx];
             if (cov) { const a = cov / (SS * SS); px = px.map((c, i) => c * (1 - a) + L.color[i] * a); }
           }
-          const o = y * (w * 3 + 1) + 1 + x * 3;
+          const o = y * (w * ch + 1) + 1 + x * ch;
           rows[o] = px[0]; rows[o + 1] = px[1]; rows[o + 2] = px[2];
+          if (radius) {
+            let a = 0;
+            for (let sy = 0; sy < SS; sy++) for (let sx = 0; sx < SS; sx++) a += inBg(x + (sx + 0.5) / SS, y + (sy + 0.5) / SS);
+            rows[o + 3] = Math.round(255 * a / (SS * SS));
+          }
         }
       }
       const chunk = (t, d) => { const b = Buffer.alloc(8 + d.length + 4); b.writeUInt32BE(d.length); b.write(t, 4); d.copy(b, 8); b.writeUInt32BE(zlib.crc32(Buffer.concat([Buffer.from(t), d])) >>> 0, 8 + d.length); return b; };
-      const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = 2;
-      fs.writeFileSync(file, Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(rows, { level: 9 })), chunk('IEND', Buffer.alloc(0))]));
+      const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = radius ? 6 : 2;
+      const out = Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(rows, { level: 9 })), chunk('IEND', Buffer.alloc(0))]);
+      if (file) fs.writeFileSync(file, out);
+      return out;
     },
   };
 }
@@ -122,4 +132,24 @@ for (const [name, size] of [['apple-touch-icon.png', 180], ['icon-192.png', 192]
   mark(ic, NAVY, size * 0.11 - 5.75 * k, size * 0.11 - 5.75 * k, 48 * k);
   ic.png(path.join(OUT, name));
 }
-console.log('Wrote og-image.png, apple-touch-icon.png, icon-192.png, icon-512.png');
+// Browser-tab icons: white G on a navy rounded square, readable on light and dark tabs.
+function tabIcon(size) {
+  const ic = canvas(size, size, NAVY, size * 0.22);
+  const k = (size * 0.8) / 36.5;
+  mark(ic, WHITE, size * 0.1 - 5.75 * k, size * 0.1 - 5.75 * k, 48 * k);
+  return ic;
+}
+tabIcon(32).png(path.join(OUT, 'favicon-32.png'));
+// favicon.ico holding 16, 32 and 48 px PNGs (served from the site root for browsers that ask for /favicon.ico).
+const sizes = [16, 32, 48];
+const pngs = sizes.map((sz) => tabIcon(sz).png());
+const head = Buffer.alloc(6 + 16 * sizes.length);
+head.writeUInt16LE(0, 0); head.writeUInt16LE(1, 2); head.writeUInt16LE(sizes.length, 4);
+let offset = head.length;
+sizes.forEach((sz, i) => {
+  const e = 6 + 16 * i;
+  head[e] = sz; head[e + 1] = sz; head.writeUInt16LE(1, e + 4); head.writeUInt16LE(32, e + 6);
+  head.writeUInt32LE(pngs[i].length, e + 8); head.writeUInt32LE(offset, e + 12); offset += pngs[i].length;
+});
+fs.writeFileSync(path.join(OUT, 'favicon.ico'), Buffer.concat([head, ...pngs]));
+console.log('Wrote og-image.png, apple-touch-icon.png, icon-192.png, icon-512.png, favicon-32.png, favicon.ico');

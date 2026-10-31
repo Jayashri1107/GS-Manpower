@@ -71,8 +71,10 @@ Source of truth: **GS Manpower Brand Guidelines v1.0 (October 2026)** (supersede
   text is never letter-spaced and gets taller line heights (`:lang(mr)` rules at the end of `styles.css`).
 - **Logo:** "G Guardian" mark. `gs-mark*.svg` are an **interim redraw**; replace with the master files when supplied
   (same names). Primary lockup in the header, reversed in the footer, no effects.
-- **Illustrations:** flat brand illustrations replace photo placeholders (`scripts/illustrations.js`). See
-  `docs/PHOTO_PROMPTS.md` for AI prompts, honesty rules and how to swap in photos.
+- **Photos:** licensed Pexels photos in `src/assets/img/photos/` (WebP, cropped to each frame; credits and licence
+  in `docs/PHOTO_CREDITS.md`). Never caption them as our staff. Brand illustrations (`scripts/illustrations.js`) are
+  kept as a fallback; `docs/PHOTO_PROMPTS.md` explains how to swap images.
+- **Favicon:** `favicon.ico` (16/32/48) at the site root plus `favicon-32.png` and the SVG mark, made by `scripts/brand-images.js`.
 - **Voice:** plain, punctual, provable; no "best/No. 1/world-class"; worker-facing pages lead in Marathi.
 
 ## Before launch – owner to supply or confirm

@@ -63,6 +63,7 @@ function build() {
 
   fs.rmSync(OUT, { recursive: true, force: true });
   copyDir(path.join(SRC, 'assets'), path.join(OUT, 'assets'));
+  fs.copyFileSync(path.join(SRC, 'assets', 'img', 'favicon.ico'), path.join(OUT, 'favicon.ico'));
 
   fs.writeFileSync(path.join(OUT, 'assets', 'js', 'config.js'),
     `window.GSMS_CONFIG = ${JSON.stringify({ whatsapp: config.whatsapp, ga4Id: config.ga4Id, phoneDisplay: config.phoneDisplay })};\n`);

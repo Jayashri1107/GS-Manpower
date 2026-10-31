@@ -612,3 +612,25 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 :lang(mr) .hero h1 { line-height: 1.2; max-width: 14ch; }
 :lang(mr) .eyebrow, :lang(mr) .subhead, :lang(mr) .card-meta, :lang(mr) .trust-label, :lang(mr) .division-of { letter-spacing: 0; }
 .brand-text:lang(en) .brand-sub { letter-spacing: var(--tracking-label); }
+
+/* ---------- Compact forms ---------- */
+.form-card { padding: clamp(1.25rem, 0.75rem + 1.6vw, 2rem); }
+.form-card h3 { margin-bottom: var(--space-1); }
+.form-card > .lead { font-size: var(--text-sm); margin-bottom: var(--space-4); }
+.form-grid { gap: var(--space-3) var(--space-4); }
+.field { gap: 6px; }
+.field label, .field legend { font-size: var(--text-xs); }
+.input, .select { min-height: 44px; padding: 9px 14px; }
+.select { padding-right: var(--space-7); }
+.textarea { min-height: 72px; padding: 9px 14px; }
+.choice span { min-height: 36px; padding: 0 var(--space-3); }
+.privacy-note { padding: var(--space-3); font-size: 0.75rem; }
+.consent-check { font-size: var(--text-xs); }
+.form-actions { margin-top: var(--space-4); }
+@media (min-width: 640px) {
+  .form-actions { flex-direction: row; align-items: center; justify-content: space-between; }
+  .form-actions .btn-block { width: auto; }
+}
+.hp-field { user-select: none; }
+/* Contact details next to a form: give the form more room */
+@media (min-width: 960px) { .split--form { grid-template-columns: 0.8fr 1.2fr; gap: var(--space-7); } }
