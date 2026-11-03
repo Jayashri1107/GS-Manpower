@@ -365,11 +365,27 @@
 
   // ---------- events ----------
   document.addEventListener('DOMContentLoaded', function () {
+    // Show / hide the password while typing. It is always hidden again when the form is sent.
+    var pwToggle = $('[data-password-toggle]');
+    function showPassword(on) {
+      var label = on ? 'Hide password' : 'Show password';
+      $('#p').type = on ? 'text' : 'password';
+      pwToggle.setAttribute('aria-pressed', String(on));
+      pwToggle.setAttribute('aria-label', label);
+      pwToggle.title = label;
+      $('use', pwToggle).setAttribute('href', on ? '#a-eye-off' : '#a-eye');
+    }
+    pwToggle.addEventListener('click', function () {
+      showPassword($('#p').type === 'password');
+      $('#p').focus();
+    });
+
     $('[data-login]').addEventListener('submit', function (e) {
       e.preventDefault();
       var f = e.target;
       var msg = $('[data-login-msg]');
       msg.textContent = '';
+      showPassword(false);
       api('POST', '/login', { username: f.username.value.trim(), password: f.password.value }).then(function (d) {
         if (d.ok) { f.password.value = ''; state.tab = 'dashboard'; show(true, d.user); } else msg.textContent = d.error || 'Login failed.';
       }).catch(function () { msg.textContent = 'Could not reach the server.'; });

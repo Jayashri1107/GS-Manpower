@@ -212,3 +212,13 @@ textarea { min-height: 84px; resize: vertical; }
 @media (min-width: 900px) { .save-bar { left: 236px; padding: 14px 36px; } }
 .settings { padding-bottom: 88px; }
 @media (max-width: 599px) { .save-bar .muted { display: none; } .save-bar .btn { width: 100%; } }
+
+/* Login: show / hide password */
+.password-field { position: relative; }
+.password-field input { padding-right: 48px; }
+.password-toggle {
+  position: absolute; top: 0; right: 0; width: 44px; height: 100%; min-height: 42px;
+  display: grid; place-items: center; padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--color-steel); border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+.password-toggle:hover, .password-toggle[aria-pressed="true"] { color: var(--color-navy); }
