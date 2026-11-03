@@ -41,5 +41,6 @@ if (args.includes('--print')) {
 console.log('\nAdmin login');
 console.log(`  Username: ${values.ADMIN_USER}`);
 console.log(`  Password: ${password}`);
+if (!args.includes('--print')) console.log('\nThis password works straight away. Each run of this command replaces the previous password.');
 console.log('\nWrite the password down now – it is not stored anywhere in readable form.');
 console.log('Keep DATA_KEY safe: without it, stored enquiries and applications cannot be read.\n');

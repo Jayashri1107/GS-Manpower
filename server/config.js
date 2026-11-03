@@ -16,7 +16,15 @@ function loadDotEnv(file = path.join(ROOT, '.env')) {
   }
 }
 
+// Reads the admin password hash from .env directly, so a new password works without restarting the server.
+function readHashFromDotEnv(file = path.join(ROOT, '.env')) {
+  if (!fs.existsSync(file)) return '';
+  const m = /^\s*ADMIN_PASSWORD_HASH\s*=\s*(.*?)\s*$/m.exec(fs.readFileSync(file, 'utf8'));
+  return m ? m[1].replace(/^(['"])(.*)\1$/, '$2') : '';
+}
+
 function getConfig() {
+  const hashIsRealEnvVar = 'ADMIN_PASSWORD_HASH' in process.env; // set by the host (EC2, Render), not by .env
   loadDotEnv();
   const env = process.env;
   const production = env.NODE_ENV === 'production';
@@ -41,6 +49,7 @@ function getConfig() {
     contentFile: path.join(dataDir, 'content.json'),
     adminUser: env.ADMIN_USER || 'admin',
     adminPasswordHash: env.ADMIN_PASSWORD_HASH || '',
+    readAdminHash: hashIsRealEnvVar ? null : readHashFromDotEnv,
     trustProxy: env.TRUST_PROXY === '1' || production,
     publicUrl: (env.PUBLIC_URL || '').replace(/\/$/, ''),
     retention: { enquiryDays: Number(env.RETAIN_ENQUIRY_DAYS || 730), applicationDays: Number(env.RETAIN_APPLICATION_DAYS || 365) },
@@ -58,4 +67,4 @@ function getConfig() {
   };
 }
 
-module.exports = { getConfig, loadDotEnv, ROOT };
+module.exports = { getConfig, loadDotEnv, readHashFromDotEnv, ROOT };

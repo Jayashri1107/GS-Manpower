@@ -50,7 +50,7 @@ function createApp(cfg, { build } = {}) {
   const store = createStore(cfg);
   const sessions = new Map();
   const formLimit = rateLimiter(cfg.production ? 5 : 100, 10 * 60 * 1000);
-  const loginLimit = rateLimiter(5, 15 * 60 * 1000);
+  const loginLimit = rateLimiter(cfg.production ? 5 : 50, 15 * 60 * 1000);
 
   const clientIp = (req) => (cfg.trustProxy && String(req.headers['x-forwarded-for'] || '').split(',')[0].trim()) || req.socket.remoteAddress || '';
   const isHttps = (req) => (cfg.trustProxy && req.headers['x-forwarded-proto'] === 'https') || req.socket.encrypted;
@@ -162,12 +162,13 @@ function createApp(cfg, { build } = {}) {
     const route = url.pathname.replace('/api/admin', '');
 
     if (route === '/login' && req.method === 'POST') {
-      if (!cfg.adminPasswordHash) return json(req, res, 503, { ok: false, error: 'Admin login is not set up. Run npm run setup.' });
+      const passwordHash = (cfg.readAdminHash && cfg.readAdminHash()) || cfg.adminPasswordHash;
+      if (!passwordHash) return json(req, res, 503, { ok: false, error: 'Admin login is not set up. Run npm run setup.' });
       if (!loginLimit(clientIp(req))) return json(req, res, 429, { ok: false, error: 'Too many attempts. Try again in 15 minutes.' });
       let body;
       try { body = JSON.parse((await readBody(req)).toString('utf8') || '{}'); } catch { return json(req, res, 400, { ok: false }); }
       const userOk = String(body.username || '') === cfg.adminUser;
-      const passOk = verifyPassword(String(body.password || ''), cfg.adminPasswordHash);
+      const passOk = verifyPassword(String(body.password || ''), passwordHash);
       if (!userOk || !passOk) { store.audit('-', 'login-failed', clientIp(req)); return json(req, res, 401, { ok: false, error: 'Wrong username or password.' }); }
       const token = crypto.randomBytes(32).toString('hex');
       sessions.set(token, { user: cfg.adminUser, expires: Date.now() + SESSION_IDLE_MS });

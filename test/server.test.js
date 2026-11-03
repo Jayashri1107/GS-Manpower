@@ -211,3 +211,17 @@ test('odd request paths never crash the server', async () => {
   });
   for (const p of ['//', '//evil.example/x', '/%E0%A4%A', '/admin/../.env']) assert.ok((await raw(p)) < 500, `${p} should not give a server error`);
 });
+
+test('a password changed in .env works without restarting the server', async () => {
+  let current = hashPassword('first-password-1');
+  const app = createApp({ ...cfg, adminPasswordHash: current, readAdminHash: () => current }, {});
+  const s = http.createServer(app.handler);
+  await new Promise((r) => s.listen(0, r));
+  const url = `http://127.0.0.1:${s.address().port}/api/admin/login`;
+  const tryLogin = (password) => fetch(url, { method: 'POST', headers: { 'X-GSM-Admin': '1', 'Content-Type': 'application/json' }, body: JSON.stringify({ username: 'admin', password }) });
+  assert.strictEqual((await tryLogin('first-password-1')).status, 200);
+  current = hashPassword('second-password-2');
+  assert.strictEqual((await tryLogin('first-password-1')).status, 401);
+  assert.strictEqual((await tryLogin('second-password-2')).status, 200);
+  s.close();
+});
