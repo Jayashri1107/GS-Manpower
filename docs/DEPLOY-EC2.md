@@ -51,6 +51,19 @@ ssh -i gs-manpower-key.pem ubuntu@YOUR_ELASTIC_IP
 ```
 All following commands run **on the server**.
 
+## Shortcut: steps 4 to 8 with one command
+
+On a fresh Ubuntu 24.04 server this does steps 4–8 in the right order, including creating the data folder and secrets:
+```bash
+curl -fsSL https://raw.githubusercontent.com/Jayashri1107/GS-Manpower/main/deploy/install.sh -o install.sh
+sudo bash install.sh
+```
+It prints the admin password once at the end. Safe to run again: it never replaces `/etc/gs-manpower.env` or stored data.
+Then continue at step 9. The manual steps below show what it does.
+
+**Data storage:** the app has no separate database server. Enquiries, applications, resumes, admin settings and the
+activity log are stored as encrypted files in `/var/lib/gs-manpower`, created by the install. Back it up as in step 11.
+
 ## 4. Install Node.js 22, Git and Caddy
 
 ```bash
