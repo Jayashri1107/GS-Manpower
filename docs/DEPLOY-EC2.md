@@ -188,8 +188,8 @@ It pulls the code, runs the tests, restarts the app and checks it is up. Setting
 |---|---|
 | App logs (live) | `sudo journalctl -u gs-manpower -f` |
 | Restart app | `sudo systemctl restart gs-manpower` |
-| HTTPS / Caddy logs | `sudo journalctl -u caddy -f` and `/var/log/caddy/gs-manpower.log` |
-| Change admin password | `cd /opt/gs-manpower && node scripts/setup.js --print` → copy **only** the new `ADMIN_PASSWORD_HASH` into `/etc/gs-manpower.env` (keep `DATA_KEY`) → `sudo systemctl restart gs-manpower` |
+| HTTPS / Caddy logs | `sudo journalctl -u caddy -f` |
+| Change admin password | `sudo bash /opt/gs-manpower/deploy/reset-admin-password.sh` (keeps `DATA_KEY`, prints the new password once) |
 | Disk space | `df -h /` |
 
 ## Security checklist

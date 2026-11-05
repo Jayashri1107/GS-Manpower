@@ -65,6 +65,8 @@ else
   umask 022
   chown root:root "$ENV_FILE"
   chmod 600 "$ENV_FILE"
+  # Shown now as well as at the end, so it is not lost if a later step fails.
+  echo "Admin login (save it now): username admin, password $NEW_PASSWORD"
 fi
 
 step "7/8 Start the app"
@@ -85,9 +87,20 @@ echo "App is running."
 
 step "8/8 HTTPS with Caddy"
 cp "$APP/deploy/Caddyfile" /etc/caddy/Caddyfile
-caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null
+caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null 2>&1
+# An earlier version could leave a root-owned log file that stopped Caddy from starting.
+mkdir -p /var/log/caddy
+rm -f /var/log/caddy/gs-manpower.log
+chown -R caddy:caddy /var/log/caddy
 systemctl enable caddy >/dev/null
-systemctl reload caddy || systemctl restart caddy
+systemctl restart caddy || true
+sleep 3
+if ! systemctl is-active --quiet caddy || ! ss -ltn | grep -qE ':(80|443)\s'; then
+  echo "Caddy did not start. Last log lines:"
+  journalctl -u caddy -n 30 --no-pager
+  exit 1
+fi
+echo "Caddy is running and listening on ports 80 and 443."
 
 MY_IP="$(curl -fsS https://checkip.amazonaws.com || true)"
 DNS_IP="$(getent ahostsv4 "$DOMAIN" | awk 'NR==1{print $1}' || true)"
